@@ -1,17 +1,14 @@
 import math
+import torch
+import weakref
 import numbers
 import warnings
-import weakref
-from typing import List, Optional, overload, Tuple
-from typing_extensions import deprecated
-
-import torch
-from torch import _VF, Tensor
+import torch.nn as nn
 from torch.nn import init
+from torch import _VF, Tensor
 from torch.nn.parameter import Parameter
 from torch.nn.utils.rnn import PackedSequence
-
-import torch.nn as nn
+from typing import List, Optional, overload, Tuple
 
 __all__ = [
     "RNNBase",
