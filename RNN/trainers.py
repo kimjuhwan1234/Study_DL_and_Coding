@@ -118,7 +118,7 @@ class FinetuneTrainer(Trainer):
         # Setting the tqdm progress bar
         rec_data_iter = tqdm.tqdm(
             enumerate(dataloader),
-            desc="RNN EP_%s:%d" % (mode, epoch),
+            desc=f"{self.args.model_name} EP_{mode}:{epoch}",
             total=len(dataloader),
             bar_format="{l_bar}{r_bar}",
         )
@@ -150,8 +150,8 @@ class FinetuneTrainer(Trainer):
             avg_acc = total_acc / len(rec_data_iter)
 
             new_data = pd.DataFrame([[epoch, avg_loss, avg_acc]], columns=["epoch", "loss", "acc"])
-            self.train_hist = pd.concat([self.train_hist.astype("float32"), new_data.astype("float32")], axis=0).reset_index(drop=True)
-
+            self.train_hist = pd.concat([self.train_hist.astype("float32"), new_data.astype("float32")],
+                                        axis=0).reset_index(drop=True)
 
             post_fix = {
                 "epoch": epoch,
@@ -189,8 +189,8 @@ class FinetuneTrainer(Trainer):
             avg_acc = total_acc / len(rec_data_iter)
 
             new_data = pd.DataFrame([[epoch, avg_loss, avg_acc]], columns=["epoch", "loss", "acc"])
-            self.val_hist = pd.concat([self.val_hist.astype("float32"), new_data.astype("float32")], axis=0).reset_index(drop=True)
-
+            self.val_hist = pd.concat([self.val_hist.astype("float32"), new_data.astype("float32")],
+                                      axis=0).reset_index(drop=True)
 
             if mode != "submission":
                 self.lr_scheduler.step(avg_loss)
