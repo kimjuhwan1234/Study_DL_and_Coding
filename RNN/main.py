@@ -1,49 +1,11 @@
 import os
 import torch
-import pickle
 from parser import args
 from models import RNNModel
 from datasets import CustomDataset
 from trainers import FinetuneTrainer
 from torch.utils.data import DataLoader
-from utils import EarlyStopping, check_path, set_seed
-
-
-def save_args_txt(args, file_path):
-    with open(file_path, "w", encoding="utf-8") as f:
-        for key, value in vars(args).items():
-            f.write(f"{key}: {value}\n")
-
-
-def load_data(file_path):
-    with open(file_path, "rb") as f:
-        loaded_data = pickle.load(f)
-
-    train = loaded_data["train"]
-    val = loaded_data["val"]
-    test = loaded_data["test"]
-
-    return train, val, test
-
-
-def retrainer(trainer, args):
-    if args.backbone_weight_path:
-        val_loss1 = trainer.valid(0)
-        trainer.load(args.backbone_weight_path)
-        val_loss2 = trainer.valid(0)
-
-        if val_loss1 > val_loss2:
-            print('backbone')
-            best_loss = val_loss2
-        else:
-            print('retrain')
-            best_loss = val_loss1
-            trainer.load(args.checkpoint_path)
-    else:
-        val_loss1 = trainer.valid(0)
-        best_loss = val_loss1
-
-    return best_loss
+from utils import EarlyStopping, check_path, set_seed, save_args_txt, load_data, retrainer
 
 
 def main():

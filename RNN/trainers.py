@@ -181,7 +181,7 @@ class FinetuneTrainer(Trainer):
 
                     else:
                         input = batch
-                        output, h_t = self.model(input)
+                        output, h_t = self.model(input[0].unsqueeze(1))
                         output = ensure_tensor_array(output)
                         batch_results.extend(output)
 
