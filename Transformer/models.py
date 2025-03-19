@@ -1,5 +1,5 @@
 import torch.nn as nn
-from modules import Transformer
+from modules import TransformerEncoder, TransformerEncoderLayer
 
 
 class TransformerModel(nn.Module):
@@ -10,13 +10,11 @@ class TransformerModel(nn.Module):
         self.embedding = nn.Embedding(args.vocab_size, args.d_model)
 
         # Transformer 정의
-        self.transformer = Transformer(
+        encoder_layers = TransformerEncoderLayer(
             d_model=args.d_model,
-            nhead=args.nhead,
-            num_encoder_layers=args.num_encoder_layers,
-            num_decoder_layers=args.num_decoder_layers,
-            batch_first=False  # Transformer는 (seq_len, batch, d_model) 형식을 기대
+            nhead=args.nhead
         )
+        self.transformer = TransformerEncoder(encoder_layers, num_layers=args.num_encoder_layers)
 
         self.fc = nn.Linear(args.d_model, 1)  # Transformer 출력에서 예측값 생성
 
@@ -36,7 +34,7 @@ class TransformerModel(nn.Module):
 
         # 5️⃣ Loss 계산 (선택적)
         if gt is not None:
-            gt = gt.float()  # (batch_size, 1)로 reshape
+            gt = gt.float().unsqueeze(-1)  # (batch_size, 1)로 reshape
             loss = nn.BCEWithLogitsLoss()(output, gt)
             return output, loss
 

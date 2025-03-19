@@ -57,7 +57,7 @@ def main():
     )
 
     # early_stoping & pretrain & retraining
-    early_stopping = EarlyStopping(args.checkpoint_path, patience=10)
+    early_stopping = EarlyStopping(args.checkpoint_path, patience=3)
     if args.using_pretrain:
         print(args.using_pretrain)
         args.backbone_weight_path = os.path.join(args.output_dir, "Pretrain.pt")
