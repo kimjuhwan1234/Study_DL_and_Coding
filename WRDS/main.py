@@ -53,7 +53,8 @@ def green2output():
 
     # datadate column contains last days of the month
     all_dates = pd.Series(df['DATE'].unique()).sort_values()
-    print(f'Converting Green\'s data\n{df['DATE'].unique()[0][:4]} [', end='')
+    aa=df['DATE'].unique()[0][:4]
+    print(f'Converting Green\'s data\n{aa} [', end='')
     for date in all_dates.iloc[1:]:
         charm_df = df[df['DATE'] == date]
         charm_df = charm_df.drop(columns='DATE').set_index('gvkey')
