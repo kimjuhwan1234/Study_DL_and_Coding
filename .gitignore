@@ -4,3 +4,5 @@
 /DenseNet/data
 /Transformer/output/Transformer-IMDB.pt
 /Database/
+/SigCWGAN/
+/SigWGAN/

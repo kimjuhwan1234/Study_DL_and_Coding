@@ -1,0 +1,88 @@
+import warnings
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+warnings.filterwarnings("ignore")
+
+
+def return_Table(weight_df: pd.DataFrame, momentum_df: pd.DataFrame, result_df: pd.DataFrame,
+                 type: str, stop_loss: bool, fee: float, log: bool) -> pd.DataFrame:
+    '''
+    weight_df (pd.DataFrame): float weight
+    momentum_df (pd.DataFrame): simple return
+    type (str): Neutral, Long, Short
+    stop_loss (bool): if loss is lower than 30%, then investing must be stopped.
+    fee (bool): consider transaction cost
+    log (bool): covert simple return to log return
+    return:
+    '''
+
+    if type == 'Neutral':
+        return_df = (weight_df * momentum_df)
+
+    elif type == 'Long':
+        weight_df = weight_df[weight_df > 0]
+        return_df = (weight_df * momentum_df)
+
+    else:
+        weight_df = weight_df[weight_df < 0]
+        return_df = (weight_df * momentum_df)
+
+    if stop_loss:
+        return_df = return_df.applymap(lambda x: -0.30 if x < -0.30 else x)
+
+    mask = (weight_df != 0) & momentum_df.isna()
+    return_df[mask] = -0.5
+    return_df = return_df.sum(axis=1)
+
+    if fee:
+        non_zero_count = weight_df.astype(bool).sum(axis=1)
+        return_df = return_df - non_zero_count * fee
+
+    if log:
+        return_df = return_df.apply(lambda x: np.log1p(x))
+
+    result_df = pd.concat([result_df, return_df], axis=1).fillna(0)
+    return result_df
+
+
+def cal_turnover(weight_df: pd.DataFrame)->float:
+    turnover = (weight_df.diff().abs().sum(axis=1)).sum() / 2
+    return f"{turnover:.2f}"
+
+
+def plot_result(result_df, apply_log: bool):
+    result_df = result_df.cumsum() if apply_log else result_df.cumprod()
+    result_df = result_df.dropna(axis=0)
+
+    color_dict = {
+        'Cointegration': 'darkgrey',  # Darker shade of grey
+        'Reversal': 'lightgrey',  # Lighter shade of grey
+        'FTSE 100': 'grey',  # Standard grey
+        'S&P 500': 'grey'
+    }
+
+    plt.figure(figsize=(12, 3), dpi=400)
+
+    handles = []
+    for key in result_df.columns:
+        if key in color_dict.keys():
+            line, = plt.plot(result_df.index, result_df.loc[:, key].fillna(method='ffill'),
+                             label=key, color=color_dict[key])
+        else:
+            line, = plt.plot(result_df.index, result_df.loc[:, key].fillna(method='ffill'),
+                             label=key)
+        handles.append(line)
+
+    plt.title(f'Backtesting Results')
+    plt.xlabel('Date')
+    if apply_log:
+        plt.ylabel(f'Cumulative Log-returns')
+    else:
+        plt.ylabel(f'Cumulative Simple-returns')
+
+    plt.xticks(rotation=45)
+    plt.legend(handles=handles, loc='upper left')
+    plt.tight_layout()
+    plt.show()
