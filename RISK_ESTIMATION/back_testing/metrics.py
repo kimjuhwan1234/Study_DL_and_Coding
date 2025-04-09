@@ -4,6 +4,7 @@ import pandas as pd
 import statsmodels.api as sm
 from scipy import stats
 
+pd.set_option('display.precision', 4)
 
 class METRICS:
     def __init__(self, result_df: pd.DataFrame, period: pd.Index):
@@ -116,13 +117,13 @@ class METRICS:
             # y.index = X.index
             model = sm.OLS(y, X)
             newey_west = model.fit(cov_type='HAC', cov_kwds={'maxlags': 5})
-            month.iloc[3, i] = newey_west.tvalues
+            month.iloc[3, i] = np.round(newey_west.tvalues, 4)
 
         self.monthly_statistics = month
 
     def save_results(self, file_path):
-        self.annual_statistics.to_csv(os.path.join(file_path, 'annual_statistics.csv'))
-        self.monthly_statistics.to_csv(os.path.join(file_path, 'monthly_statistics.csv'))
+        self.annual_statistics.applymap(lambda x: round(x, 4)).to_csv(os.path.join(file_path, 'annual_statistics.csv'))
+        self.monthly_statistics.applymap(lambda x: round(x, 4)).to_csv(os.path.join(file_path, 'monthly_statistics.csv'))
 
 
 if __name__ == '__main__':

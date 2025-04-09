@@ -7,41 +7,42 @@ warnings.filterwarnings("ignore")
 
 
 def return_Table(weight_df: pd.DataFrame, momentum_df: pd.DataFrame, result_df: pd.DataFrame,
-                 type: str, stop_loss: bool, fee: float, log: bool) -> pd.DataFrame:
+                 log: bool, type: str, stop_loss: bool, fee: float) -> pd.DataFrame:
     '''
     weight_df (pd.DataFrame): float weight
     momentum_df (pd.DataFrame): simple return
     type (str): Neutral, Long, Short
     stop_loss (bool): if loss is lower than 30%, then investing must be stopped.
-    fee (bool): consider transaction cost
-    log (bool): covert simple return to log return
-    return:
+    fee (float): transaction cost per trade (given as simple return)
+    log (bool): convert simple return to log return
+    return: updated result_df (pd.DataFrame)
     '''
 
+    if log:
+        momentum_df = momentum_df.applymap(lambda x: np.log1p(x))
+
     if type == 'Neutral':
-        return_df = (weight_df * momentum_df)
+        return_df = weight_df * momentum_df
 
     elif type == 'Long':
-        weight_df = weight_df[weight_df > 0]
-        return_df = (weight_df * momentum_df)
+        weight_df = weight_df.where(weight_df > 0, 0)
+        return_df = weight_df * momentum_df
 
-    else:
-        weight_df = weight_df[weight_df < 0]
-        return_df = (weight_df * momentum_df)
+    else:  # Short
+        weight_df = weight_df.where(weight_df < 0, 0)
+        return_df = weight_df * momentum_df
 
     if stop_loss:
-        return_df = return_df.applymap(lambda x: -0.30 if x < -0.30 else x)
+        return_df = return_df.applymap(lambda x: max(x, np.log(0.7)))  # -30% stop loss → log(0.7)
 
     mask = (weight_df != 0) & momentum_df.isna()
-    return_df[mask] = -0.5
+    return_df[mask] = np.log(0.5)  # -50% 손실 → log(0.5)
     return_df = return_df.sum(axis=1)
 
     if fee:
+        fee_log = np.log(1 - fee)
         non_zero_count = weight_df.astype(bool).sum(axis=1)
-        return_df = return_df - non_zero_count * fee
-
-    if log:
-        return_df = return_df.apply(lambda x: np.log1p(x))
+        return_df = return_df + non_zero_count * fee_log
 
     result_df = pd.concat([result_df, return_df], axis=1).fillna(0)
     return result_df

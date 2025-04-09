@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/sp500.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW/기계_HW2.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW/시뮬_HW2.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/metrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/return_calculate.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/return_calculate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/result.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/result.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,17 +64,17 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/asas4/바탕 화면/Dokumen/GitHub/Study/Study_DL_and_Coding/RISK_ESTIMATION&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/asas4/바탕 화면/Dokumen/GitHub/Study/Study_DL_and_Coding/HW&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\HW" />
       <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\RISK_ESTIMATION" />
       <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\RISK_ESTIMATION\data" />
       <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding" />
       <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\Transformer" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\RNN" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding" />
