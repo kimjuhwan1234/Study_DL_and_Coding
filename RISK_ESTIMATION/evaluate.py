@@ -1,21 +1,19 @@
 import os
+import torch
 import warnings
-
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import torch
-from sklearn.linear_model import LinearRegression
-
-from hyperparameters import SIGCWGAN_CONFIGS
+import matplotlib.pyplot as plt
 from lib.algos.base import BaseConfig
-from lib.algos.base import is_multivariate
-from lib.algos.sigcwgan import calibrate_sigw1_metric, sample_sig_fake
-from lib.algos.sigcwgan import sigcwgan_loss
 from lib.arfnn import SimpleGenerator
-from lib.plot import plot_summary, compare_cross_corr
 from lib.test_metrics import test_metrics
+from lib.algos.base import is_multivariate
 from lib.utils import load_pickle, to_numpy
+from lib.algos.sigcwgan import sigcwgan_loss
+from hyperparameters import SIGCWGAN_CONFIGS
+from sklearn.linear_model import LinearRegression
+from lib.plot import plot_summary, compare_cross_corr
+from lib.algos.sigcwgan import calibrate_sigw1_metric, sample_sig_fake
 
 warnings.filterwarnings("ignore")
 
@@ -50,7 +48,7 @@ def compute_test_metrics(x_fake, x_real):
 def get_algo_config(dataset, experiment_dir):
     key = dataset
     if dataset == 'VAR':
-        key='VAR10'
+        key = 'VAR10'
     sig_config = SIGCWGAN_CONFIGS[key]
     return sig_config
 

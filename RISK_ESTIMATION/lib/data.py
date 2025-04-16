@@ -45,6 +45,24 @@ class StandardScalerTS():
     def inverse_transform(self, x):
         return x * self.std.to(x.device) + self.mean.to(x.device)
 
+    def save(self, path: str):
+        """Save mean and std to a file."""
+        data = {
+            "mean": self.mean.cpu() if self.mean is not None else None,
+            "std": self.std.cpu() if self.std is not None else None,
+            "axis": self.axis
+        }
+        with open(path, "wb") as f:
+            pickle.dump(data, f)
+
+    def load(self, path: str):
+        """Load mean and std from a file."""
+        with open(path, "rb") as f:
+            data = pickle.load(f)
+            self.mean = data["mean"]
+            self.std = data["std"]
+            self.axis = data["axis"]
+
 
 def get_equities_dataset(assets=('SPX', 'DJI'), with_vol=True):
     """

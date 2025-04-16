@@ -23,18 +23,18 @@ SIGCWGAN_CONFIGS = dict(
         sig_config_past=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),
         sig_config_future=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),
     ),
-    VAR10=SigCWGANConfig(
+    VAR110=SigCWGANConfig(
         mc_size=2000,
         sig_config_past=SignatureConfig(depth=2, augmentations=(Scale(0.5), Cumsum(), Concat())),
         sig_config_future=SignatureConfig(depth=2, augmentations=(Scale(0.5), Cumsum(), Concat())),
     ),
     STOCKS_SPX=SigCWGANConfig(
-        mc_size=1000,
+        mc_size=2000,
         sig_config_past=SignatureConfig(depth=3, augmentations=tuple([Scale(0.2), Cumsum(), AddLags(m=2), LeadLag()])),
         sig_config_future=SignatureConfig(depth=3,
                                           augmentations=tuple([Scale(0.2), Cumsum(), AddLags(m=2), LeadLag()])),
     ),
-    STOCKS_SPX_DJI=SigCWGANConfig(
+    VAR10=SigCWGANConfig(
         mc_size=1000,
         sig_config_past=SignatureConfig(depth=2, augmentations=tuple([Scale(0.2), Cumsum(), AddLags(m=2), LeadLag()])),
         sig_config_future=SignatureConfig(depth=2,
