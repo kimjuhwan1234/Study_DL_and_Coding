@@ -8,11 +8,18 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/evaluate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/lib/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/lib/data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/dynamic_strategy.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/dynamic_strategy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/return_calculate.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/return_calculate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/lib/algos/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/lib/algos/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/G_weights.torch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/losses.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/losses.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/training_loss.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/training_loss.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real.torch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_test.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_test.torch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_train.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_train.torch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -206,9 +213,9 @@
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>
-          <line>118</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb</url>
+          <line>31</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

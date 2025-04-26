@@ -21,6 +21,9 @@ def return_Table(weight_df: pd.DataFrame, momentum_df: pd.DataFrame, result_df: 
     if log:
         momentum_df = momentum_df.applymap(lambda x: np.log1p(x))
 
+    if len(weight_df.columns) != len(momentum_df.columns):
+        momentum_df['CASH']=np.log1p(0.000119)
+
     if type == 'Neutral':
         return_df = weight_df * momentum_df
 
