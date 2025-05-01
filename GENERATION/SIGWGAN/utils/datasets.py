@@ -1,14 +1,14 @@
 import os
-import glob
-import pandas as pd
-import random
-import yfinance as yf
-from fbm import fbm, MBM
-import tqdm
 
+import pandas as pd
+import yfinance as yf
+from fbm import MBM
+import tqdm
 import torch
 import numpy as np
+
 from .utils import sample_indices, load_obj, save_obj
+
 
 def train_test_split(
         x: torch.Tensor,
@@ -25,40 +25,43 @@ def train_test_split(
     x_test = x[indices_test]
     return x_train, x_test
 
+
 def download_stock_price(
-        ticker : str,
-        start : str = '2012-01-01',
-        end : str = '2025-01-01',
+        ticker: str,
+        start: str = '2012-01-01',
+        end: str = '2025-01-01',
         interval: str = '1d',
-):  
+):
     '''
     If you want to download other stock data, please do it before execute your code.
     '''
     dataframe = yf.download(ticker, start=start, end=end, interval=interval)
-    file_name = ticker+"_"+interval+".csv"
-    csv_file_file = os.path.join("datasets", "stock", file_name) 
+    file_name = ticker + "_" + interval + ".csv"
+    csv_file_file = os.path.join("datasets", "stock", file_name)
     if not os.path.exists(csv_file_file):
         dataframe.to_csv(file_name)
     return dataframe
+
 
 def rolling_window(x: torch.Tensor, window_size: int):
     '''
     See https://se.mathworks.com/help/econ/rolling-window-estimation-of-state-space-models.html
     '''
-    print("Tensor shape before rolling:",x.shape)
+    print("Tensor shape before rolling:", x.shape)
     windowed_data = []
     for t in range(x.shape[0] - window_size + 1):
         window = x[t:t + window_size, :]
         windowed_data.append(window)
-    print("Tensor shape after rolling:",torch.stack(windowed_data, dim=0).shape)
+    print("Tensor shape after rolling:", torch.stack(windowed_data, dim=0).shape)
     return torch.stack(windowed_data, dim=0)
+
 
 def transfer_percentage(x):
     '''
     Calculate the percentage change of each element in the sequence relative to its starting value, 
     ignoring sequences that start with a zero value.
     '''
-    start = x[:, 0 :1, :]
+    start = x[:, 0:1, :]
 
     # remove zero start
     idx_ = torch.nonzero(start == 0, as_tuple=False).tolist()
@@ -72,6 +75,24 @@ def transfer_percentage(x):
     new_x = (new_x - new_start) / new_start
     return new_x
 
+
+def pct_change(x: torch.Tensor):
+    '''
+    Calculate percent change along time dimension (dim=1) just like pandas pct_change.
+    Returns a tensor of shape (N, T-1, D).
+    '''
+    # x: shape (N, T, D)
+    prev = x[:, :-1, :]
+    curr = x[:, 1:, :]
+
+    # Avoid division by zero
+    zero_mask = prev == 0
+    pct = (curr - prev) / prev
+    pct[zero_mask] = 0  # or torch.nan, depending on your needs
+
+    return pct
+
+
 def get_stock_price(data_config):
     """
     Get stock price
@@ -80,18 +101,18 @@ def get_stock_price(data_config):
     dataset: torch.Tensor
         torch.tensor of shape (#data, window_size, 1)
     """
-    csv_file_name = data_config['ticker']+"_"+data_config['interval']+".csv"
-    pt_file_name = data_config['ticker']+"_"+data_config['interval']+"_rolled.pt"
-    csv_file_path = os.path.join(data_config['dir'], data_config['subdir'], csv_file_name) 
+    csv_file_name = data_config['ticker'] + "_" + data_config['interval'] + ".csv"
+    pt_file_name = data_config['ticker'] + "_" + data_config['interval'] + "_rolled.pt"
+    csv_file_path = os.path.join(data_config['dir'], data_config['subdir'], csv_file_name)
     pt_file_path = os.path.join(data_config['dir'], data_config['subdir'], pt_file_name)
 
     if not os.path.exists(csv_file_name):
-        _ = download_stock_price(ticker=data_config['ticker'],interval=data_config['interval'])
+        _ = download_stock_price(ticker=data_config['ticker'], interval=data_config['interval'])
 
     if os.path.exists(pt_file_path):
         dataset = load_obj(pt_file_path)
         print(f'Rolled data for training, shape {dataset.shape}')
-        
+
     else:
         df = pd.read_csv(csv_file_path)
         print(f'Original data: {os.path.basename(csv_file_name)}, shape {df.shape}')
@@ -104,6 +125,7 @@ def get_stock_price(data_config):
         print(f'Rolled data for training, shape {dataset.shape}')
         save_obj(dataset, pt_file_path)
     return dataset
+
 
 def get_rBergomi_paths(hurst=0.25, size=2200, n_lags=100, maturity=1, xi=0.5, eta=0.5):
     r"""
@@ -136,32 +158,33 @@ def get_rBergomi_paths(hurst=0.25, size=2200, n_lags=100, maturity=1, xi=0.5, et
         array of shape (size, n_lags, 2)
 
     """
-    assert hurst<0.5, "hurst parameter should be < 0.5"
+    assert hurst < 0.5, "hurst parameter should be < 0.5"
 
     dataset = np.zeros((size, n_lags, 2))
 
     for j in tqdm(range(size), total=size):
-        
-        m = MBM(n=n_lags-1, hurst=lambda t: hurst, length=maturity, method='riemannliouville')
-        fbm = m.mbm() # fractional Brownian motion
+        m = MBM(n=n_lags - 1, hurst=lambda t: hurst, length=maturity, method='riemannliouville')
+        fbm = m.mbm()  # fractional Brownian motion
         times = m.times()
-        V = xi * np.exp(eta * fbm - 0.5 * eta**2 * times**(2*hurst))
+        V = xi * np.exp(eta * fbm - 0.5 * eta ** 2 * times ** (2 * hurst))
 
-        h = times[1:] - times[:-1] # time increments
+        h = times[1:] - times[:-1]  # time increments
         brownian_increments = np.random.randn(h.shape[0]) * np.sqrt(h)
 
         log_S = np.zeros_like(V)
-        log_S[1:] = (-0.5 * V[:-1]*h + np.sqrt(V[:-1]) * brownian_increments).cumsum() # Ito formula to get SDE for  d log(S_t). We assume S_0 = 1
+        log_S[1:] = (-0.5 * V[:-1] * h + np.sqrt(
+            V[:-1]) * brownian_increments).cumsum()  # Ito formula to get SDE for  d log(S_t). We assume S_0 = 1
         S = np.exp(log_S)
-        dataset[j] = np.stack([S, V],1) 
+        dataset[j] = np.stack([S, V], 1)
     return dataset
+
 
 def get_gbm(size, n_lags, d=1, drift=0., scale=0.1, h=1):
     '''
     See Wiki: https://en.wikipedia.org/wiki/Geometric_Brownian_motion#Simulating_sample_paths
     '''
-    S_t = torch.ones(size,n_lags,d)
-    S_t[:,1:,:] = (drift-scale ** 2 / 2) * h + torch.normal(mean=0,std=np.sqrt(h),size=(size,n_lags-1,d))
+    S_t = torch.ones(size, n_lags, d)
+    S_t[:, 1:, :] = (drift - scale ** 2 / 2) * h + torch.normal(mean=0, std=np.sqrt(h), size=(size, n_lags - 1, d))
     S_t = torch.exp(S_t)
     S_t = S_t.cumprod(1)
     return S_t

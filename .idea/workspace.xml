@@ -5,21 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/117768_NVDA.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/12141_MSFT.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/157855_CRM.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/160329_GOOG.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/1690_AAPL.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/184996_TSLA.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/3980_DIS.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/4503_XOM.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/6008_INTC.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/64768_AMZN.parquet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/GSPC.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/data/sp500.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/sigwgan.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/tailgan.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/timetransformer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/arfnn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/generators.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/parser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/augmentations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/test_metrics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/SIGWGAN/utils/datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/SIGWGAN/utils/datasets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/SIGWGAN/utils/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/SIGWGAN/utils/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/sigwgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/sigwgan.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/lib/algos/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/lib/algos/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/losses.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/losses.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/training_loss.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/training_loss.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real.torch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_test.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_test.torch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_train.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_train.torch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +64,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/kimjuhwan1234/Study_DL_and_Coding.git&quot;,
-    &quot;accountId&quot;: &quot;f1c095f5-2c5d-4f37-853b-dbae0c248208&quot;
+    &quot;accountId&quot;: &quot;6bf3fdb1-abcf-4814-938a-c32d98e27e5a&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -60,6 +78,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Python.TS_generation.executor": "Debug",
     "Python.evaluate.executor": "Debug",
     "Python.inference.executor": "Run",
     "Python.main (1).executor": "Run",
@@ -73,27 +92,49 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/asas4/바탕 화면",
+    "last_opened_file_path": "C:/Users/USER/Desktop/Documents/GitHub/Study/Study_DL_and_Coding/GENERATION/T4-sigWGAN/network",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\network" />
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\utils" />
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN" />
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\models" />
       <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\GENERATION\data" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\GENERATION\SIGWGAN" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\GENERATION" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\HW" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\RISK_ESTIMATION" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\utils" />
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\network" />
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\models" />
       <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\GENERATION\SIGWGAN\utils" />
       <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\GENERATION" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\WRDS" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\RNN" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.sigwgan">
+  <component name="RunManager" selected="Python.TS_generation">
+    <configuration name="TS_generation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Study_DL_and_Coding" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RISK_ESTIMATION" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="evaluate" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Study_DL_and_Coding" />
       <option name="ENV_FILES" value="" />
@@ -184,6 +225,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.TS_generation" />
         <item itemvalue="Python.sigwgan" />
         <item itemvalue="Python.metrics" />
         <item itemvalue="Python.evaluate" />
@@ -194,11 +236,20 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-a8e928d85084-fab4200a9dfa-com.jetbrains.pycharm.ds.sharedIndexes.bundled-DS-243.22562.236" />
+        <option value="bundled-python-sdk-f7cd937e3587-99d813433b97-com.jetbrains.pycharm.ds.sharedIndexes.bundled-DS-251.23774.439" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <created>1745916649276</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745916649276</updated>
+    </task>
+    <servers />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -233,24 +284,29 @@
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GENERATION/sigwgan.py</url>
-          <line>96</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GENERATION/sigwgan.py</url>
-          <line>84</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GENERATION/SIGWGAN/model/sigwgan.py</url>
-          <line>34</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GENERATION/SIGWGAN/network/generators.py</url>
           <line>105</line>
           <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/GENERATION/sigwgan.py</url>
+          <line>100</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.py</url>
+          <line>117</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.py</url>
+          <line>53</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/lib/algos/sigcwgan.py</url>
+          <line>77</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb</url>
@@ -263,29 +319,14 @@
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>
-          <line>46</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>
-          <line>116</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/GENERATION/sigwgan.ipynb</url>
-          <line>64</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/GENERATION/sigwgan.ipynb</url>
-          <line>59</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/GENERATION/sigwgan.ipynb</url>
-          <line>93</line>
+          <line>103</line>
           <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>
+          <line>166</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

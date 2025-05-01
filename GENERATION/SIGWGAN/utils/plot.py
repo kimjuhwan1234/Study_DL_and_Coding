@@ -103,11 +103,11 @@ def compare_acf(x_real, x_fake, ax=None, max_lag=64, CI=True, dim=(0, 1), drop_f
 
 def plot_summary(x_fake, x_real, trainer: str, G: str, max_lag=None, labels=None):
     if max_lag is None:
-        max_lag = min(128, x_fake.shape[1])
+        max_lag = 3
 
 
     dim = x_real.shape[2]
-    _, axes = plt.subplots(dim, 3, figsize=(25, dim * 5))
+    _, axes = plt.subplots(dim, 3, figsize=(25, dim * 5), dpi=400)
 
     if len(axes.shape) == 1:
         axes = axes[None, ...]

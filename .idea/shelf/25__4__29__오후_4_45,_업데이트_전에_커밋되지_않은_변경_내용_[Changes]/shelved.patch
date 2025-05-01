@@ -1,0 +1,501 @@
+Index: RISK_ESTIMATION/hyperparameters.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from lib.algos.sigcwgan import SigCWGANConfig\r\nfrom lib.augmentations import get_standard_augmentation, SignatureConfig, Scale, Concat, Cumsum, AddLags, LeadLag\r\n\r\nSIGCWGAN_CONFIGS = dict(\r\n    ECG=SigCWGANConfig(\r\n        mc_size=1000,\r\n        sig_config_past=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.05)),\r\n        sig_config_future=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.05)),\r\n    ),\r\n    VAR1=SigCWGANConfig(\r\n        mc_size=500,\r\n        sig_config_past=SignatureConfig(depth=3, augmentations=tuple([Scale(0.2), Cumsum(), AddLags(m=2), LeadLag()])),\r\n        sig_config_future=SignatureConfig(depth=3,\r\n                                          augmentations=tuple([Scale(0.2), Cumsum(), AddLags(m=2), LeadLag()])),\r\n    ),\r\n    VAR2=SigCWGANConfig(\r\n        mc_size=1000,\r\n        sig_config_past=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),\r\n        sig_config_future=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),\r\n    ),\r\n    VAR3=SigCWGANConfig(\r\n        mc_size=1000,\r\n        sig_config_past=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),\r\n        sig_config_future=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),\r\n    ),\r\n    VAR110=SigCWGANConfig(\r\n        mc_size=2000,\r\n        sig_config_past=SignatureConfig(depth=2, augmentations=(Scale(0.5), Cumsum(), Concat())),\r\n        sig_config_future=SignatureConfig(depth=2, augmentations=(Scale(0.5), Cumsum(), Concat())),\r\n    ),\r\n    STOCKS_SPX=SigCWGANConfig(\r\n        mc_size=2000,\r\n        sig_config_past=SignatureConfig(depth=3, augmentations=tuple([Scale(0.2), Cumsum(), AddLags(m=2), LeadLag()])),\r\n        sig_config_future=SignatureConfig(depth=3,\r\n                                          augmentations=tuple([Scale(0.2), Cumsum(), AddLags(m=2), LeadLag()])),\r\n    ),\r\n    VAR10=SigCWGANConfig(\r\n        mc_size=1000,\r\n        sig_config_past=SignatureConfig(depth=2, augmentations=tuple([Scale(0.2), Cumsum(), AddLags(m=2), LeadLag()])),\r\n        sig_config_future=SignatureConfig(depth=2,\r\n                                          augmentations=tuple([Scale(0.2), Cumsum(), AddLags(m=2), LeadLag()])),\r\n    ),\r\n    ARCH=SigCWGANConfig(\r\n        mc_size=2000,\r\n        sig_config_past=SignatureConfig(depth=3, augmentations=get_standard_augmentation(0.2)),\r\n        sig_config_future=SignatureConfig(depth=3, augmentations=get_standard_augmentation(0.2)),\r\n    ),\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/RISK_ESTIMATION/hyperparameters.py b/RISK_ESTIMATION/hyperparameters.py
+--- a/RISK_ESTIMATION/hyperparameters.py	(revision 738f83e5d8116181de9b456c84e3fbdb92270aae)
++++ b/RISK_ESTIMATION/hyperparameters.py	(date 1744976147390)
+@@ -23,8 +23,8 @@
+         sig_config_past=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),
+         sig_config_future=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),
+     ),
+-    VAR110=SigCWGANConfig(
+-        mc_size=2000,
++    VAR85=SigCWGANConfig(
++        mc_size=1000,
+         sig_config_past=SignatureConfig(depth=2, augmentations=(Scale(0.5), Cumsum(), Concat())),
+         sig_config_future=SignatureConfig(depth=2, augmentations=(Scale(0.5), Cumsum(), Concat())),
+     ),
+Index: RISK_ESTIMATION/TS_generation.ipynb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n \"cells\": [\r\n  {\r\n   \"cell_type\": \"code\",\r\n   \"id\": \"initial_id\",\r\n   \"metadata\": {\r\n    \"collapsed\": true,\r\n    \"ExecuteTime\": {\r\n     \"end_time\": \"2025-04-16T06:51:43.797517Z\",\r\n     \"start_time\": \"2025-04-16T06:51:42.144376Z\"\r\n    }\r\n   },\r\n   \"source\": [\r\n    \"import gc\\n\",\r\n    \"import torch\\n\",\r\n    \"import argparse\\n\",\r\n    \"import numpy as np\\n\",\r\n    \"import pandas as pd\\n\",\r\n    \"import matplotlib.pyplot as plt\\n\",\r\n    \"from lib import ALGOS\\n\",\r\n    \"from os import path as pt\\n\",\r\n    \"from lib.utils import pickle_it\\n\",\r\n    \"from lib.algos.base import BaseConfig\\n\",\r\n    \"from lib.data import get_data, get_data2\\n\",\r\n    \"from hyperparameters import SIGCWGAN_CONFIGS\\n\",\r\n    \"from lib.plot import savefig, create_summary\\n\",\r\n    \"\\n\",\r\n    \"gc.collect()\"\r\n   ],\r\n   \"outputs\": [\r\n    {\r\n     \"data\": {\r\n      \"text/plain\": [\r\n       \"0\"\r\n      ]\r\n     },\r\n     \"execution_count\": 1,\r\n     \"metadata\": {},\r\n     \"output_type\": \"execute_result\"\r\n    }\r\n   ],\r\n   \"execution_count\": 1\r\n  },\r\n  {\r\n   \"metadata\": {\r\n    \"ExecuteTime\": {\r\n     \"end_time\": \"2025-04-16T06:51:43.813266Z\",\r\n     \"start_time\": \"2025-04-16T06:51:43.801715Z\"\r\n    }\r\n   },\r\n   \"cell_type\": \"code\",\r\n   \"source\": [\r\n    \"def get_algo_config(dataset, data_params):\\n\",\r\n    \"    \\\"\\\"\\\" Get the algorithms parameters. \\\"\\\"\\\"\\n\",\r\n    \"    key = dataset\\n\",\r\n    \"    if dataset == 'VAR':\\n\",\r\n    \"        key += str(data_params['dim'])\\n\",\r\n    \"    elif dataset == 'STOCKS':\\n\",\r\n    \"        key += '_' + '_'.join(data_params['assets'])\\n\",\r\n    \"    return SIGCWGAN_CONFIGS[key]\\n\",\r\n    \"\\n\",\r\n    \"\\n\",\r\n    \"def set_seed(seed):\\n\",\r\n    \"    torch.manual_seed(seed)\\n\",\r\n    \"    np.random.seed(seed)\\n\",\r\n    \"\\n\",\r\n    \"\\n\",\r\n    \"def get_algo(algo_id, base_config, dataset, data_params, x_real):\\n\",\r\n    \"    if algo_id == 'SigCWGAN':\\n\",\r\n    \"        algo_config = get_algo_config(dataset, data_params)\\n\",\r\n    \"        algo = ALGOS[algo_id](x_real=x_real, config=algo_config, base_config=base_config)\\n\",\r\n    \"    else:\\n\",\r\n    \"        algo = ALGOS[algo_id](x_real=x_real, base_config=base_config)\\n\",\r\n    \"    return algo\\n\",\r\n    \"\\n\",\r\n    \"\\n\",\r\n    \"def run(algo_id, base_config, dataset, data_params={}):\\n\",\r\n    \"    \\\"\\\"\\\" Create the experiment directory, calibrate algorithm, store relevant parameters. \\\"\\\"\\\"\\n\",\r\n    \"    experiment_directory = f'./numerical_results/{dataset}/stock/seed=0/SigCWGAN'\\n\",\r\n    \"\\n\",\r\n    \"    df_2 = get_dataset_configuration()\\n\",\r\n    \"    x_real = get_data2(df_2.values.reshape(1, -1, 10), base_config.p, base_config.q)\\n\",\r\n    \"    x_real = x_real.to(base_config.device)\\n\",\r\n    \"    ind_train = int(x_real.shape[0] * 0.8)\\n\",\r\n    \"    x_real_train, x_real_test = x_real[:ind_train], x_real[ind_train:]  #train_test_split(x_real, train_size = 0.8)\\n\",\r\n    \"\\n\",\r\n    \"    algo = get_algo(algo_id, base_config, dataset, data_params, x_real_train)\\n\",\r\n    \"    # Train the algorithm\\n\",\r\n    \"    algo.fit()\\n\",\r\n    \"    # create summary\\n\",\r\n    \"    create_summary(dataset, base_config.device, algo.G, base_config.p, base_config.q, x_real_test)\\n\",\r\n    \"    savefig('summary.png', experiment_directory)\\n\",\r\n    \"    x_fake = create_summary(dataset, base_config.device, algo.G, base_config.p, 8000, x_real_test, one=True)\\n\",\r\n    \"    savefig('summary_long.png', experiment_directory)\\n\",\r\n    \"    plt.plot(x_fake.cpu().numpy()[0, :2000])\\n\",\r\n    \"    savefig('long_path.png', experiment_directory)\\n\",\r\n    \"    # Pickle generator weights, real path and hyperparameters.\\n\",\r\n    \"    pickle_it(x_real, pt.join(pt.dirname(experiment_directory), 'x_real.torch'))\\n\",\r\n    \"    pickle_it(x_real_test, pt.join(pt.dirname(experiment_directory), 'x_real_test.torch'))\\n\",\r\n    \"    pickle_it(x_real_train, pt.join(pt.dirname(experiment_directory), 'x_real_train.torch'))\\n\",\r\n    \"    pickle_it(algo.training_loss, pt.join(experiment_directory, 'training_loss.pkl'))\\n\",\r\n    \"    pickle_it(algo.G.to('cpu').state_dict(), pt.join(experiment_directory, 'G_weights.torch'))\\n\",\r\n    \"    # Log some results at the end of training\\n\",\r\n    \"    algo.plot_losses()\\n\",\r\n    \"    savefig('losses.png', experiment_directory)\\n\",\r\n    \"\\n\",\r\n    \"\\n\",\r\n    \"def get_dataset_configuration():\\n\",\r\n    \"    price_df = pd.read_csv('./data/sp500.csv')\\n\",\r\n    \"    price_df.set_index('datadate', inplace=True)\\n\",\r\n    \"    df_0 = price_df[['AAPL', 'DIS', 'XOM', 'INTC', 'MSFT', 'AMZN', 'NVDA', 'CRM', 'GOOGL', 'TSLA']]\\n\",\r\n    \"    df_1 = df_0.dropna(axis=0)\\n\",\r\n    \"    df_2 = df_1.pct_change().applymap(lambda x: np.log1p(x)).dropna()\\n\",\r\n    \"    return df_2\"\r\n   ],\r\n   \"id\": \"2446235fa7adb4d4\",\r\n   \"outputs\": [],\r\n   \"execution_count\": 2\r\n  },\r\n  {\r\n   \"metadata\": {\r\n    \"ExecuteTime\": {\r\n     \"end_time\": \"2025-04-16T06:51:43.893077Z\",\r\n     \"start_time\": \"2025-04-16T06:51:43.862814Z\"\r\n    }\r\n   },\r\n   \"cell_type\": \"code\",\r\n   \"source\": [\r\n    \"parser = argparse.ArgumentParser()\\n\",\r\n    \"# Meta parameters\\n\",\r\n    \"parser.add_argument('-base_dir', default='./numerical_results', type=str)\\n\",\r\n    \"parser.add_argument('-use_cuda', default=1, action='store_true')\\n\",\r\n    \"parser.add_argument('-device', default=0, type=int)\\n\",\r\n    \"parser.add_argument('-num_seeds', default=1, type=int)\\n\",\r\n    \"parser.add_argument('-initial_seed', default=0, type=int)\\n\",\r\n    \"#parser.add_argument('-datasets', default=['ARCH', 'STOCKS', 'ECG', 'VAR', ], nargs=\\\"+\\\")\\n\",\r\n    \"parser.add_argument('-datasets', default=['STOCKS', 'ARCH', 'VAR', ], nargs=\\\"+\\\")\\n\",\r\n    \"parser.add_argument('-algos', default=['SigCWGAN', 'GMMN', 'RCGAN', 'TimeGAN', 'RCWGAN', 'CWGAN', ], nargs=\\\"+\\\")\\n\",\r\n    \"\\n\",\r\n    \"# Algo hyperparameters\\n\",\r\n    \"parser.add_argument('-batch_size', default=200, type=int)\\n\",\r\n    \"parser.add_argument('-p', default=3, type=int)\\n\",\r\n    \"parser.add_argument('-q', default=3, type=int)\\n\",\r\n    \"parser.add_argument('-hidden_dims', default=4 * (64,), type=tuple)\\n\",\r\n    \"parser.add_argument('-total_steps', default=1000, type=int)\\n\",\r\n    \"\\n\",\r\n    \"args, unknown = parser.parse_known_args()\\n\",\r\n    \"\\n\",\r\n    \"set_seed(0)\\n\",\r\n    \"\\n\",\r\n    \"base_config = BaseConfig(\\n\",\r\n    \"    device='cuda:{}'.format(args.device) if args.use_cuda and torch.cuda.is_available() else 'cpu',\\n\",\r\n    \"    batch_size=args.batch_size,\\n\",\r\n    \"    hidden_dims=args.hidden_dims,\\n\",\r\n    \"    seed=0,\\n\",\r\n    \"    p=args.p,\\n\",\r\n    \"    q=args.q,\\n\",\r\n    \"    total_steps=args.total_steps,\\n\",\r\n    \"    mc_samples=1000,\\n\",\r\n    \")\\n\",\r\n    \"\\n\",\r\n    \"data_params = {'dim': 10}\\n\",\r\n    \"base_config.device\"\r\n   ],\r\n   \"id\": \"f8ee0802dbc01f4a\",\r\n   \"outputs\": [\r\n    {\r\n     \"data\": {\r\n      \"text/plain\": [\r\n       \"'cuda:0'\"\r\n      ]\r\n     },\r\n     \"execution_count\": 3,\r\n     \"metadata\": {},\r\n     \"output_type\": \"execute_result\"\r\n    }\r\n   ],\r\n   \"execution_count\": 3\r\n  },\r\n  {\r\n   \"metadata\": {\r\n    \"ExecuteTime\": {\r\n     \"end_time\": \"2025-04-16T07:12:43.740233Z\",\r\n     \"start_time\": \"2025-04-16T06:51:43.909104Z\"\r\n    }\r\n   },\r\n   \"cell_type\": \"code\",\r\n   \"source\": [\r\n    \"run(\\n\",\r\n    \"    algo_id='SigCWGAN',\\n\",\r\n    \"    base_config=base_config,\\n\",\r\n    \"    data_params=data_params,\\n\",\r\n    \"    dataset='VAR',\\n\",\r\n    \")\"\r\n   ],\r\n   \"id\": \"97749a53e81f9877\",\r\n   \"outputs\": [\r\n    {\r\n     \"name\": \"stderr\",\r\n     \"output_type\": \"stream\",\r\n     \"text\": [\r\n      \"100%|███████████████████████████████████████| 1000/1000 [20:43<00:00,  1.24s/it]\\n\"\r\n     ]\r\n    }\r\n   ],\r\n   \"execution_count\": 4\r\n  }\r\n ],\r\n \"metadata\": {\r\n  \"kernelspec\": {\r\n   \"display_name\": \"Python 3\",\r\n   \"language\": \"python\",\r\n   \"name\": \"python3\"\r\n  },\r\n  \"language_info\": {\r\n   \"codemirror_mode\": {\r\n    \"name\": \"ipython\",\r\n    \"version\": 2\r\n   },\r\n   \"file_extension\": \".py\",\r\n   \"mimetype\": \"text/x-python\",\r\n   \"name\": \"python\",\r\n   \"nbconvert_exporter\": \"python\",\r\n   \"pygments_lexer\": \"ipython2\",\r\n   \"version\": \"2.7.6\"\r\n  }\r\n },\r\n \"nbformat\": 4,\r\n \"nbformat_minor\": 5\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/RISK_ESTIMATION/TS_generation.ipynb b/RISK_ESTIMATION/TS_generation.ipynb
+--- a/RISK_ESTIMATION/TS_generation.ipynb	(revision 738f83e5d8116181de9b456c84e3fbdb92270aae)
++++ b/RISK_ESTIMATION/TS_generation.ipynb	(date 1744976201552)
+@@ -1,230 +1,132 @@
+-{
+- "cells": [
+-  {
+-   "cell_type": "code",
+-   "id": "initial_id",
+-   "metadata": {
+-    "collapsed": true,
+-    "ExecuteTime": {
+-     "end_time": "2025-04-16T06:51:43.797517Z",
+-     "start_time": "2025-04-16T06:51:42.144376Z"
+-    }
+-   },
+-   "source": [
+-    "import gc\n",
+-    "import torch\n",
+-    "import argparse\n",
+-    "import numpy as np\n",
+-    "import pandas as pd\n",
+-    "import matplotlib.pyplot as plt\n",
+-    "from lib import ALGOS\n",
+-    "from os import path as pt\n",
+-    "from lib.utils import pickle_it\n",
+-    "from lib.algos.base import BaseConfig\n",
+-    "from lib.data import get_data, get_data2\n",
+-    "from hyperparameters import SIGCWGAN_CONFIGS\n",
+-    "from lib.plot import savefig, create_summary\n",
+-    "\n",
+-    "gc.collect()"
+-   ],
+-   "outputs": [
+-    {
+-     "data": {
+-      "text/plain": [
+-       "0"
+-      ]
+-     },
+-     "execution_count": 1,
+-     "metadata": {},
+-     "output_type": "execute_result"
+-    }
+-   ],
+-   "execution_count": 1
+-  },
+-  {
+-   "metadata": {
+-    "ExecuteTime": {
+-     "end_time": "2025-04-16T06:51:43.813266Z",
+-     "start_time": "2025-04-16T06:51:43.801715Z"
+-    }
+-   },
+-   "cell_type": "code",
+-   "source": [
+-    "def get_algo_config(dataset, data_params):\n",
+-    "    \"\"\" Get the algorithms parameters. \"\"\"\n",
+-    "    key = dataset\n",
+-    "    if dataset == 'VAR':\n",
+-    "        key += str(data_params['dim'])\n",
+-    "    elif dataset == 'STOCKS':\n",
+-    "        key += '_' + '_'.join(data_params['assets'])\n",
+-    "    return SIGCWGAN_CONFIGS[key]\n",
+-    "\n",
+-    "\n",
+-    "def set_seed(seed):\n",
+-    "    torch.manual_seed(seed)\n",
+-    "    np.random.seed(seed)\n",
+-    "\n",
+-    "\n",
+-    "def get_algo(algo_id, base_config, dataset, data_params, x_real):\n",
+-    "    if algo_id == 'SigCWGAN':\n",
+-    "        algo_config = get_algo_config(dataset, data_params)\n",
+-    "        algo = ALGOS[algo_id](x_real=x_real, config=algo_config, base_config=base_config)\n",
+-    "    else:\n",
+-    "        algo = ALGOS[algo_id](x_real=x_real, base_config=base_config)\n",
+-    "    return algo\n",
+-    "\n",
+-    "\n",
+-    "def run(algo_id, base_config, dataset, data_params={}):\n",
+-    "    \"\"\" Create the experiment directory, calibrate algorithm, store relevant parameters. \"\"\"\n",
+-    "    experiment_directory = f'./numerical_results/{dataset}/stock/seed=0/SigCWGAN'\n",
+-    "\n",
+-    "    df_2 = get_dataset_configuration()\n",
+-    "    x_real = get_data2(df_2.values.reshape(1, -1, 10), base_config.p, base_config.q)\n",
+-    "    x_real = x_real.to(base_config.device)\n",
+-    "    ind_train = int(x_real.shape[0] * 0.8)\n",
+-    "    x_real_train, x_real_test = x_real[:ind_train], x_real[ind_train:]  #train_test_split(x_real, train_size = 0.8)\n",
+-    "\n",
+-    "    algo = get_algo(algo_id, base_config, dataset, data_params, x_real_train)\n",
+-    "    # Train the algorithm\n",
+-    "    algo.fit()\n",
+-    "    # create summary\n",
+-    "    create_summary(dataset, base_config.device, algo.G, base_config.p, base_config.q, x_real_test)\n",
+-    "    savefig('summary.png', experiment_directory)\n",
+-    "    x_fake = create_summary(dataset, base_config.device, algo.G, base_config.p, 8000, x_real_test, one=True)\n",
+-    "    savefig('summary_long.png', experiment_directory)\n",
+-    "    plt.plot(x_fake.cpu().numpy()[0, :2000])\n",
+-    "    savefig('long_path.png', experiment_directory)\n",
+-    "    # Pickle generator weights, real path and hyperparameters.\n",
+-    "    pickle_it(x_real, pt.join(pt.dirname(experiment_directory), 'x_real.torch'))\n",
+-    "    pickle_it(x_real_test, pt.join(pt.dirname(experiment_directory), 'x_real_test.torch'))\n",
+-    "    pickle_it(x_real_train, pt.join(pt.dirname(experiment_directory), 'x_real_train.torch'))\n",
+-    "    pickle_it(algo.training_loss, pt.join(experiment_directory, 'training_loss.pkl'))\n",
+-    "    pickle_it(algo.G.to('cpu').state_dict(), pt.join(experiment_directory, 'G_weights.torch'))\n",
+-    "    # Log some results at the end of training\n",
+-    "    algo.plot_losses()\n",
+-    "    savefig('losses.png', experiment_directory)\n",
+-    "\n",
+-    "\n",
+-    "def get_dataset_configuration():\n",
+-    "    price_df = pd.read_csv('./data/sp500.csv')\n",
+-    "    price_df.set_index('datadate', inplace=True)\n",
+-    "    df_0 = price_df[['AAPL', 'DIS', 'XOM', 'INTC', 'MSFT', 'AMZN', 'NVDA', 'CRM', 'GOOGL', 'TSLA']]\n",
+-    "    df_1 = df_0.dropna(axis=0)\n",
+-    "    df_2 = df_1.pct_change().applymap(lambda x: np.log1p(x)).dropna()\n",
+-    "    return df_2"
+-   ],
+-   "id": "2446235fa7adb4d4",
+-   "outputs": [],
+-   "execution_count": 2
+-  },
+-  {
+-   "metadata": {
+-    "ExecuteTime": {
+-     "end_time": "2025-04-16T06:51:43.893077Z",
+-     "start_time": "2025-04-16T06:51:43.862814Z"
+-    }
+-   },
+-   "cell_type": "code",
+-   "source": [
+-    "parser = argparse.ArgumentParser()\n",
+-    "# Meta parameters\n",
+-    "parser.add_argument('-base_dir', default='./numerical_results', type=str)\n",
+-    "parser.add_argument('-use_cuda', default=1, action='store_true')\n",
+-    "parser.add_argument('-device', default=0, type=int)\n",
+-    "parser.add_argument('-num_seeds', default=1, type=int)\n",
+-    "parser.add_argument('-initial_seed', default=0, type=int)\n",
+-    "#parser.add_argument('-datasets', default=['ARCH', 'STOCKS', 'ECG', 'VAR', ], nargs=\"+\")\n",
+-    "parser.add_argument('-datasets', default=['STOCKS', 'ARCH', 'VAR', ], nargs=\"+\")\n",
+-    "parser.add_argument('-algos', default=['SigCWGAN', 'GMMN', 'RCGAN', 'TimeGAN', 'RCWGAN', 'CWGAN', ], nargs=\"+\")\n",
+-    "\n",
+-    "# Algo hyperparameters\n",
+-    "parser.add_argument('-batch_size', default=200, type=int)\n",
+-    "parser.add_argument('-p', default=3, type=int)\n",
+-    "parser.add_argument('-q', default=3, type=int)\n",
+-    "parser.add_argument('-hidden_dims', default=4 * (64,), type=tuple)\n",
+-    "parser.add_argument('-total_steps', default=1000, type=int)\n",
+-    "\n",
+-    "args, unknown = parser.parse_known_args()\n",
+-    "\n",
+-    "set_seed(0)\n",
+-    "\n",
+-    "base_config = BaseConfig(\n",
+-    "    device='cuda:{}'.format(args.device) if args.use_cuda and torch.cuda.is_available() else 'cpu',\n",
+-    "    batch_size=args.batch_size,\n",
+-    "    hidden_dims=args.hidden_dims,\n",
+-    "    seed=0,\n",
+-    "    p=args.p,\n",
+-    "    q=args.q,\n",
+-    "    total_steps=args.total_steps,\n",
+-    "    mc_samples=1000,\n",
+-    ")\n",
+-    "\n",
+-    "data_params = {'dim': 10}\n",
+-    "base_config.device"
+-   ],
+-   "id": "f8ee0802dbc01f4a",
+-   "outputs": [
+-    {
+-     "data": {
+-      "text/plain": [
+-       "'cuda:0'"
+-      ]
+-     },
+-     "execution_count": 3,
+-     "metadata": {},
+-     "output_type": "execute_result"
+-    }
+-   ],
+-   "execution_count": 3
+-  },
+-  {
+-   "metadata": {
+-    "ExecuteTime": {
+-     "end_time": "2025-04-16T07:12:43.740233Z",
+-     "start_time": "2025-04-16T06:51:43.909104Z"
+-    }
+-   },
+-   "cell_type": "code",
+-   "source": [
+-    "run(\n",
+-    "    algo_id='SigCWGAN',\n",
+-    "    base_config=base_config,\n",
+-    "    data_params=data_params,\n",
+-    "    dataset='VAR',\n",
+-    ")"
+-   ],
+-   "id": "97749a53e81f9877",
+-   "outputs": [
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "100%|███████████████████████████████████████| 1000/1000 [20:43<00:00,  1.24s/it]\n"
+-     ]
+-    }
+-   ],
+-   "execution_count": 4
+-  }
+- ],
+- "metadata": {
+-  "kernelspec": {
+-   "display_name": "Python 3",
+-   "language": "python",
+-   "name": "python3"
+-  },
+-  "language_info": {
+-   "codemirror_mode": {
+-    "name": "ipython",
+-    "version": 2
+-   },
+-   "file_extension": ".py",
+-   "mimetype": "text/x-python",
+-   "name": "python",
+-   "nbconvert_exporter": "python",
+-   "pygments_lexer": "ipython2",
+-   "version": "2.7.6"
+-  }
+- },
+- "nbformat": 4,
+- "nbformat_minor": 5
+-}
++#%%
++import gc
++import torch
++import argparse
++import numpy as np
++import pandas as pd
++import matplotlib.pyplot as plt
++from lib import ALGOS
++from os import path as pt
++from lib.utils import pickle_it
++from lib.algos.base import BaseConfig
++from lib.data import get_data, get_data2
++from hyperparameters import SIGCWGAN_CONFIGS
++from lib.plot import savefig, create_summary
++
++gc.collect()
++#%%
++AAPL=pd.read_parquet('../Database/금융데이터/monthly_pricewithcharacteristics/1690_AAPL.parquet', engine="pyarrow")
++#%%
++AAPL
++#%%
++def get_dataset_configuration2():
++    df_=pd.read_parquet('../Database/금융데이터/monthly_pricewithcharacteristics/1690_AAPL.parquet', engine="pyarrow")
++    df_0 = df_.drop(columns=['tic', 'conm', 'prcod'])
++    df_1 = df_0.dropna(axis=0)
++    return df_1
++#%%
++def get_algo_config(dataset, data_params):
++    """ Get the algorithms parameters. """
++    key = dataset
++    if dataset == 'VAR':
++        key += str(data_params['dim'])
++    elif dataset == 'STOCKS':
++        key += '_' + '_'.join(data_params['assets'])
++    return SIGCWGAN_CONFIGS[key]
++
++
++def set_seed(seed):
++    torch.manual_seed(seed)
++    np.random.seed(seed)
++
++
++def get_algo(algo_id, base_config, dataset, data_params, x_real):
++    if algo_id == 'SigCWGAN':
++        algo_config = get_algo_config(dataset, data_params)
++        algo = ALGOS[algo_id](x_real=x_real, config=algo_config, base_config=base_config)
++    else:
++        algo = ALGOS[algo_id](x_real=x_real, base_config=base_config)
++    return algo
++
++
++def run(algo_id, base_config, dataset, data_params={}):
++    """ Create the experiment directory, calibrate algorithm, store relevant parameters. """
++    experiment_directory = f'./numerical_results/{dataset}/stock/seed=0/SigCWGAN'
++
++    df_2 = get_dataset_configuration2()
++    x_real = get_data2(df_2.values.reshape(1, -1, 10), base_config.p, base_config.q)
++    x_real = x_real.to(base_config.device)
++    ind_train = int(x_real.shape[0] * 0.8)
++    x_real_train, x_real_test = x_real[:ind_train], x_real[ind_train:]  #train_test_split(x_real, train_size = 0.8)
++
++    algo = get_algo(algo_id, base_config, dataset, data_params, x_real_train)
++    # Train the algorithm
++    algo.fit()
++    # create summary
++    create_summary(dataset, base_config.device, algo.G, base_config.p, base_config.q, x_real_test)
++    savefig('summary.png', experiment_directory)
++    x_fake = create_summary(dataset, base_config.device, algo.G, base_config.p, 8000, x_real_test, one=True)
++    savefig('summary_long.png', experiment_directory)
++    plt.plot(x_fake.cpu().numpy()[0, :2000])
++    savefig('long_path.png', experiment_directory)
++    # Pickle generator weights, real path and hyperparameters.
++    pickle_it(x_real, pt.join(pt.dirname(experiment_directory), 'x_real.torch'))
++    pickle_it(x_real_test, pt.join(pt.dirname(experiment_directory), 'x_real_test.torch'))
++    pickle_it(x_real_train, pt.join(pt.dirname(experiment_directory), 'x_real_train.torch'))
++    pickle_it(algo.training_loss, pt.join(experiment_directory, 'training_loss.pkl'))
++    pickle_it(algo.G.to('cpu').state_dict(), pt.join(experiment_directory, 'G_weights.torch'))
++    # Log some results at the end of training
++    algo.plot_losses()
++    savefig('losses.png', experiment_directory)
++
++
++def get_dataset_configuration():
++    price_df = pd.read_csv('./data/sp500.csv')
++    price_df.set_index('datadate', inplace=True)
++    df_0 = price_df[['AAPL', 'DIS', 'XOM', 'INTC', 'MSFT', 'AMZN', 'NVDA', 'CRM', 'GOOGL', 'TSLA']]
++    df_1 = df_0.dropna(axis=0)
++    df_2 = df_1.pct_change().applymap(lambda x: np.log1p(x)).dropna()
++    return df_2
++#%%
++parser = argparse.ArgumentParser()
++# Meta parameters
++parser.add_argument('-base_dir', default='./numerical_results', type=str)
++parser.add_argument('-use_cuda', default=1, action='store_true')
++parser.add_argument('-device', default=0, type=int)
++parser.add_argument('-num_seeds', default=1, type=int)
++parser.add_argument('-initial_seed', default=0, type=int)
++#parser.add_argument('-datasets', default=['ARCH', 'STOCKS', 'ECG', 'VAR', ], nargs="+")
++parser.add_argument('-datasets', default=['STOCKS', 'ARCH', 'VAR', ], nargs="+")
++parser.add_argument('-algos', default=['SigCWGAN', 'GMMN', 'RCGAN', 'TimeGAN', 'RCWGAN', 'CWGAN', ], nargs="+")
++
++# Algo hyperparameters
++parser.add_argument('-batch_size', default=200, type=int)
++parser.add_argument('-p', default=3, type=int)
++parser.add_argument('-q', default=3, type=int)
++parser.add_argument('-hidden_dims', default=4 * (64,), type=tuple)
++parser.add_argument('-total_steps', default=1000, type=int)
++
++args, unknown = parser.parse_known_args()
++
++set_seed(0)
++
++base_config = BaseConfig(
++    device='cuda:{}'.format(args.device) if args.use_cuda and torch.cuda.is_available() else 'cpu',
++    batch_size=args.batch_size,
++    hidden_dims=args.hidden_dims,
++    seed=0,
++    p=args.p,
++    q=args.q,
++    total_steps=args.total_steps,
++    mc_samples=1000,
++)
++
++data_params = {'dim': 85}
++base_config.device
++#%%
++run(
++    algo_id='SigCWGAN',
++    base_config=base_config,
++    data_params=data_params,
++    dataset='VAR',
++)
+\ No newline at end of file
+Index: .idea/Study_DL_and_Coding.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module version=\"4\">\r\n  <component name=\"PyDocumentationSettings\">\r\n    <option name=\"format\" value=\"PLAIN\" />\r\n    <option name=\"myDocStringFormat\" value=\"Plain\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Study_DL_and_Coding.iml b/.idea/Study_DL_and_Coding.iml
+--- a/.idea/Study_DL_and_Coding.iml	(revision 738f83e5d8116181de9b456c84e3fbdb92270aae)
++++ b/.idea/Study_DL_and_Coding.iml	(date 1744858264969)
+@@ -1,7 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<module version="4">
+-  <component name="PyDocumentationSettings">
+-    <option name="format" value="PLAIN" />
+-    <option name="myDocStringFormat" value="Plain" />
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4\" name=\"Changes\" comment=\".\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/RISK_ESTIMATION/evaluate.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/RISK_ESTIMATION/evaluate.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/RISK_ESTIMATION/lib/data.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/RISK_ESTIMATION/lib/data.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n        <option value=\"Jupyter Notebook\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;kimjuhwan1234&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/kimjuhwan1234/Study_DL_and_Coding.git&quot;,\r\n    &quot;accountId&quot;: &quot;f1c095f5-2c5d-4f37-853b-dbae0c248208&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 7\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2tq4O52ti8EkKFiabndrjziLxbf\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,\r\n    &quot;Python.evaluate.executor&quot;: &quot;Debug&quot;,\r\n    &quot;Python.inference.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.main (1).executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.main.executor&quot;: &quot;Debug&quot;,\r\n    &quot;Python.metrics.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.parser.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.run_train.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.setup.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.train.executor&quot;: &quot;Debug&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/asas4/바탕 화면/Dokumen/GitHub/Study/Study_DL_and_Coding/RISK_ESTIMATION/general_results/images&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\asas4\\바탕 화면\\Dokumen\\GitHub\\Study\\Study_DL_and_Coding\\HW\" />\r\n      <recent name=\"C:\\Users\\asas4\\바탕 화면\\Dokumen\\GitHub\\Study\\Study_DL_and_Coding\\RISK_ESTIMATION\" />\r\n      <recent name=\"C:\\Users\\asas4\\바탕 화면\\Dokumen\\GitHub\\Study\\Study_DL_and_Coding\\RISK_ESTIMATION\\data\" />\r\n      <recent name=\"C:\\Users\\asas4\\바탕 화면\\Dokumen\\GitHub\\Study\\Study_DL_and_Coding\" />\r\n      <recent name=\"C:\\Users\\asas4\\바탕 화면\\Dokumen\\GitHub\\Study\\Study_DL_and_Coding\\Transformer\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\asas4\\바탕 화면\\Dokumen\\GitHub\\Study\\Study_DL_and_Coding\" />\r\n      <recent name=\"C:\\Users\\asas4\\바탕 화면\\Dokumen\\GitHub\\Study\\Study_DL_and_Coding\\WRDS\" />\r\n      <recent name=\"C:\\Users\\asas4\\바탕 화면\\Dokumen\\GitHub\\Study\\Study_DL_and_Coding\\RNN\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Python.metrics\">\r\n    <configuration name=\"evaluate\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Study_DL_and_Coding\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/RISK_ESTIMATION\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/RISK_ESTIMATION/evaluate.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"metrics\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Study_DL_and_Coding\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/RISK_ESTIMATION/back_testing\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/RISK_ESTIMATION/back_testing/metrics.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"train\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Study_DL_and_Coding\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/SigCWGAN\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/SigCWGAN/train.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Python.metrics\" />\r\n        <item itemvalue=\"Python.evaluate\" />\r\n        <item itemvalue=\"Python.train\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-a8e928d85084-fab4200a9dfa-com.jetbrains.pycharm.ds.sharedIndexes.bundled-DS-243.22562.236\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\".\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\".\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" suspend=\"THREAD\" type=\"python-line\">\r\n          <url>file://$PROJECT_DIR$/Transformer/trainers.py</url>\r\n          <line>134</line>\r\n          <option name=\"timeStamp\" value=\"4\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" suspend=\"THREAD\" type=\"python-line\">\r\n          <url>file://$PROJECT_DIR$/RNN/trainers.py</url>\r\n          <line>138</line>\r\n          <option name=\"timeStamp\" value=\"5\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" suspend=\"THREAD\" type=\"python-line\">\r\n          <url>file://$PROJECT_DIR$/SigCWGAN/train.py</url>\r\n          <line>161</line>\r\n          <option name=\"timeStamp\" value=\"6\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" suspend=\"THREAD\" type=\"jupyter-line\">\r\n          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>\r\n          <line>49</line>\r\n          <option name=\"timeStamp\" value=\"12\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" suspend=\"THREAD\" type=\"jupyter-line\">\r\n          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>\r\n          <line>118</line>\r\n          <option name=\"timeStamp\" value=\"13\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 738f83e5d8116181de9b456c84e3fbdb92270aae)
++++ b/.idea/workspace.xml	(date 1745912752196)
+@@ -5,15 +5,10 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment=".">
++      <change beforePath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/evaluate.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/lib/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/lib/data.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -40,7 +35,7 @@
+   <component name="GithubPullRequestsUISettings">{
+   &quot;selectedUrlAndAccountId&quot;: {
+     &quot;url&quot;: &quot;https://github.com/kimjuhwan1234/Study_DL_and_Coding.git&quot;,
+-    &quot;accountId&quot;: &quot;f1c095f5-2c5d-4f37-853b-dbae0c248208&quot;
++    &quot;accountId&quot;: &quot;6bf3fdb1-abcf-4814-938a-c32d98e27e5a&quot;
+   }
+ }</component>
+   <component name="ProjectColorInfo">{
+@@ -66,7 +61,7 @@
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/asas4/바탕 화면/Dokumen/GitHub/Study/Study_DL_and_Coding/RISK_ESTIMATION/general_results/images&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/Documents/GitHub/Study/Study_DL_and_Coding&quot;,
+     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+   }
+ }</component>
+@@ -162,11 +157,20 @@
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-python-sdk-a8e928d85084-fab4200a9dfa-com.jetbrains.pycharm.ds.sharedIndexes.bundled-DS-243.22562.236" />
++        <option value="bundled-python-sdk-f7cd937e3587-99d813433b97-com.jetbrains.pycharm.ds.sharedIndexes.bundled-DS-251.23774.439" />
+       </set>
+     </attachedChunks>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
++  <component name="TaskManager">
++    <task active="true" id="Default" summary="디폴트 작업">
++      <created>1744858256929</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1744858256929</updated>
++    </task>
++    <servers />
++  </component>
+   <component name="Vcs.Log.Tabs.Properties">
+     <option name="TAB_STATES">
+       <map>
+@@ -202,12 +206,12 @@
+         </line-breakpoint>
+         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>
+-          <line>49</line>
++          <line>61</line>
+           <option name="timeStamp" value="12" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>
+-          <line>118</line>
++          <line>139</line>
+           <option name="timeStamp" value="13" />
+         </line-breakpoint>
+       </breakpoints>

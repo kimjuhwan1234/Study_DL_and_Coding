@@ -12,11 +12,11 @@ from ..test_metrics import test_metrics
 @dataclass
 class BaseConfig:
     seed: int = 0
-    batch_size: int = 200
+    batch_size: int = 256
     device: str = 'cpu'
-    p: int = 3
-    q: int = 3
-    hidden_dims: Tuple[int] = 4 * (128,)
+    p: int = 20
+    q: int = 5
+    hidden_dims: Tuple[int] = 5 * (128,)
     total_steps: int = 1000
     mc_samples: int = 1000
 

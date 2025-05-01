@@ -20,7 +20,7 @@ sigwgan_config = {
         {"name": "VisiTrans", "type": "I"}
     ],
     "device": "cuda:0",
-    "depth": 5
+    "depth": 2
 }
 data_config = {
     "column": 0,
@@ -33,7 +33,7 @@ logsig_config = {
     "augmentations": [
         {"name": "LeadLag"},
     ],
-    "depth": 4,
+    "depth": 2,
     "input_dim": 5,
     "len_noise": 1000,
     "len_interval_u": 50,

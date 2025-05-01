@@ -23,8 +23,8 @@ SIGCWGAN_CONFIGS = dict(
         sig_config_past=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),
         sig_config_future=SignatureConfig(depth=2, augmentations=get_standard_augmentation(0.2)),
     ),
-    VAR110=SigCWGANConfig(
-        mc_size=2000,
+    VAR85=SigCWGANConfig(
+        mc_size=1000,
         sig_config_past=SignatureConfig(depth=2, augmentations=(Scale(0.5), Cumsum(), Concat())),
         sig_config_future=SignatureConfig(depth=2, augmentations=(Scale(0.5), Cumsum(), Concat())),
     ),
