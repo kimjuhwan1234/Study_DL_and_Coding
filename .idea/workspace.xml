@@ -5,39 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/sigwgan.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/tailgan.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/timetransformer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/arfnn.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/base.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/generators.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/parser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/augmentations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/test_metrics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/metric/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/loss.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/SIGWGAN/utils/datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/SIGWGAN/utils/datasets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/SIGWGAN/utils/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/SIGWGAN/utils/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/sigwgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/scratch/sigwgan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/tailgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/supervisor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/models/timetransformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/tailgan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/network/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/arfnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/network/arfnn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/network/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/network/generators.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/sigwgan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/timetransformer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/augmentations.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/augmentations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/test_metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/metric/test_metrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4-sigWGAN/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/sigwgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/sigwgan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/hyperparameters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/lib/algos/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/lib/algos/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/losses.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/losses.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/training_loss.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/training_loss.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real.torch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_test.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_test.torch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_train.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_train.torch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/sigwgan.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,24 +83,24 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/USER/Desktop/Documents/GitHub/Study/Study_DL_and_Coding/GENERATION/T4-sigWGAN/network",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "last_opened_file_path": "C:/Users/USER/Desktop/Documents/GitHub/Study/Study_DL_and_Coding/GENERATION/T4sigWGAN",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4sigWGAN" />
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\metric" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\network" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\utils" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN" />
-      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\models" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\GENERATION\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\scratch" />
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4sigWGAN\models" />
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION" />
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\metric" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\utils" />
-      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\network" />
-      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\models" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\GENERATION\SIGWGAN\utils" />
-      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding\GENERATION" />
     </key>
   </component>
   <component name="RunManager" selected="Python.TS_generation">
@@ -289,11 +280,6 @@
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GENERATION/sigwgan.py</url>
-          <line>100</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.py</url>
           <line>117</line>
           <option name="timeStamp" value="30" />
@@ -307,6 +293,21 @@
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/lib/algos/sigcwgan.py</url>
           <line>77</line>
           <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py</url>
+          <line>168</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py</url>
+          <line>275</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py</url>
+          <line>381</line>
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb</url>
@@ -327,6 +328,26 @@
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>
           <line>166</line>
           <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/GENERATION/sigwgan.ipynb</url>
+          <line>97</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/GENERATION/tutorial_timegan.ipynb</url>
+          <line>199</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/GENERATION/tutorial_timegan.ipynb</url>
+          <line>212</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/GENERATION/tutorial_timegan.ipynb</url>
+          <line>225</line>
+          <option name="timeStamp" value="45" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

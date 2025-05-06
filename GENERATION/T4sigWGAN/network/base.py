@@ -6,7 +6,7 @@ from ..utils import to_numpy
 from dataclasses import dataclass
 from collections import defaultdict
 from .arfnn import SimpleGenerator
-from ..utils.test_metrics import test_metrics
+from ..metric.test_metrics import test_metrics
 
 
 @dataclass
