@@ -155,4 +155,4 @@ def plot_hist(index, hist_df, title):
     plt.ylabel(f"{title}")
     plt.legend(loc="upper right")
     plt.tight_layout()
-    plt.savefig(f"output/{title}_plot.png", bbox_inches='tight')
+    plt.savefig(f"result/{title}_plot.png", bbox_inches='tight')

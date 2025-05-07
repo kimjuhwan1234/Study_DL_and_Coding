@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/25__4__29___4_45_________Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/metric/test_metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/metric/test_metrics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/sigwgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/sigwgan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/supervisor.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/supervisor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/tailgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/tailgan.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/Transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/Transform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/gen_thresholds.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/gen_thresholds.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/tutorial_timegan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/tutorial_timegan.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -401,16 +390,6 @@
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py</url>
-          <line>27</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py</url>
-          <line>403</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/gen_thresholds.py</url>
           <line>77</line>
           <option name="timeStamp" value="56" />
@@ -424,6 +403,11 @@
           <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/models/tailgan.py</url>
           <line>85</line>
           <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py</url>
+          <line>128</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb</url>
@@ -451,17 +435,17 @@
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/GENERATION/tutorial_timegan.ipynb</url>
+          <url>file://$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb</url>
           <line>200</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/GENERATION/tutorial_timegan.ipynb</url>
+          <url>file://$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb</url>
           <line>213</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/GENERATION/tutorial_timegan.ipynb</url>
+          <url>file://$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb</url>
           <line>226</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>

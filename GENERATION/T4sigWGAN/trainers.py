@@ -92,9 +92,9 @@ class Trainer:
         return correct
 
     def evaluate(self):
-        self.train_hist = self.train_hist.map(
+        self.train_hist = self.train_hist.applymap(
             lambda x: x.cpu().detach().numpy() if isinstance(x, torch.Tensor) else x)
-        self.val_hist = self.val_hist.map(
+        self.val_hist = self.val_hist.applymap(
             lambda x: x.cpu().detach().numpy() if isinstance(x, torch.Tensor) else x)
 
         loss_df = pd.concat([self.train_hist['epoch'], self.train_hist['loss'], self.val_hist['loss']], axis=1)
@@ -193,15 +193,9 @@ class FinetuneTrainer(Trainer):
                     input = batch.to(self.device)
                     if stage == "Pretrain_1":
                         x_tilde, loss = self.model(input, stage)
-                        self.optim_dict['E'].zero_grad()
-                        loss.backward()
-                        self.optim_dict['E'].step()
 
                     elif stage == "Pretrain_2":
                         x_tilde, loss = self.model(input, stage)
-                        self.optim_dict['S'].zero_grad()
-                        loss.backward()
-                        self.optim_dict['S'].step()
 
                     else:
                         x_hat, loss = self.model(input, stage)
@@ -211,18 +205,6 @@ class FinetuneTrainer(Trainer):
                         fake_score = self.criterion(gen_PNL_validity, PNL)
                         loss_D = real_score - fake_score
                         loss_G = fake_score
-
-                        self.optim_dict['G'].zero_grad()
-                        loss.backward(retain_graph=True)
-                        self.optim_dict['G'].step()
-
-                        self.optim_dict['D'].zero_grad()
-                        loss_D.backward(retain_graph=True)
-                        self.optim_dict['D'].step()
-
-                        self.optim_dict['R'].zero_grad()
-                        loss_G.backward()
-                        self.optim_dict['R'].step()
 
                     total_loss += loss
                     total_acc += 0

@@ -5,7 +5,7 @@ from .utils.augmentations import parse_augmentations
 parser = argparse.ArgumentParser()
 
 # initial setting
-parser.add_argument("--epochs", type=int, default=1, help="number of epochs")
+parser.add_argument("--epochs", type=int, default=2, help="number of epochs")
 parser.add_argument("--device", default=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
 
 # log location
@@ -18,6 +18,7 @@ parser.add_argument("--adam_beta1", type=float, default=0.9, help="adam first be
 parser.add_argument("--adam_beta2", type=float, default=0.999, help="adam second beta value")
 parser.add_argument("--lr", type=float, default=0.001, help="learning rate of adam")
 parser.add_argument("--weight_decay", type=float, default=0.0, help="weight_decay of adam")
+parser.add_argument("--log_freq", type=int, default=5, help="per epoch print res")
 
 args, unknown = parser.parse_known_args()
 
