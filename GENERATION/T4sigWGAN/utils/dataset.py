@@ -37,7 +37,7 @@ def pct_change(x: torch.Tensor):
 
 
 class StockTimeSeriesDataset(Dataset):
-    def __init__(self, csv_path='data/sp500.csv', tickers=None, window_size=31):
+    def __init__(self, csv_path='data/sp500.csv', tickers=None, window_size=61):
         super().__init__()
         if tickers is None:
             tickers = ['AAPL', 'DIS', 'XOM', 'INTC', 'MSFT', 'AMZN', 'NVDA', 'CRM', 'GOOGL', 'TSLA']

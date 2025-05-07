@@ -13,11 +13,17 @@ from torch import nn
 
 from .Transform import Tensor, Inc2Price, movingaverage
 
-your_path = 'your_path'
-parent_data_path = join(your_path, 'gan_data')
+your_path = 'data/'
+parent_data_path = your_path
+
+def windowize(data: torch.Tensor, window: int = 60):
+    T_total, N = data.shape
+    B = T_total - window + 1
+    windows = torch.stack([data[i:i+window] for i in range(B)])  # (B, T, N)
+    return windows
 
 
-def gen_thresholds(data_name, tickers, strategy, percentile_l, length, WH):
+def gen_thresholds(data_name, tickers, strategy, percentile_l, WH):
     thresholds_data_folder = join(your_path, 'Thresholds', data_name)
     os.makedirs(thresholds_data_folder, exist_ok=True)
 
@@ -35,47 +41,56 @@ def gen_thresholds(data_name, tickers, strategy, percentile_l, length, WH):
     if isfile(thresholds_path):
         thresholds_array_stocks = np.load(thresholds_path)
     else:
-        data_path = join(parent_data_path, data_name)
-        data_l = []
-        files = os.listdir(data_path)
-        files.sort()
-        for item in range(length):
-            file_path = join(data_path, files[item])
-            tmp_data = pd.read_csv(file_path)[tickers].values.T
-            data_l.append(tmp_data)
+        csv_path = join(parent_data_path, 'sp500.csv')
+        df = pd.read_csv(csv_path)
+        df.set_index('datadate', inplace=True)
+        df = df[tickers].dropna()
+        data_l = df.to_numpy(dtype='float32')
+        data = Tensor(data_l)
 
-        data = np.stack(data_l)
-        data = Tensor(data)
+        prices_l = windowize(data)
 
-        prices_l = Inc2Price(data)
 
-        prices_l_flat = prices_l.view(prices_l.shape[0] * prices_l.shape[1], -1)
+        # 1. B, T, N -> (B*T, N)
+        prices_l_flat = prices_l.reshape(-1, prices_l.shape[2])  # (B*T, N)
 
         thresholds_array_list = []
-        for stk in range(data.shape[1]):
-            if 'MR' in strategy:
-                prices_l_ma = torch.mean(prices_l[:, :, :WH + 1], dim=2)
-                prices_l_ma_flat = prices_l_ma.view(prices_l_ma.shape[0] * prices_l_ma.shape[1], -1)
 
-                # Compute the z-scores for each day using the historical data up to that day
-                zscores_MR = (prices_l_flat - prices_l_ma_flat) / 0.01
-                zscores_MR = zscores_MR.cpu().detach().numpy()
-                thresholds_array = np.array([np.percentile(zscores_MR, i) for i in percentile_l])
-                thresholds_array_list.append(thresholds_array)
-            elif 'TF' in strategy:
-                prices_l_ma = movingaverage(prices_l, WH)
-                prices_l_ma2 = movingaverage(prices_l, WH * 2)
-                prices_l_ma_flat = prices_l_ma.reshape(prices_l_ma.shape[0] * prices_l_ma.shape[1], -1)
-                prices_l_ma2_flat = prices_l_ma2.reshape(prices_l_ma2.shape[0] * prices_l_ma2.shape[1], -1)
-                # Compute the z-scores for each day using the historical data up to that day
-                zscores_TF = (prices_l_ma_flat - prices_l_ma2_flat) / 0.01
+        if 'MR' in strategy:
+            # 2. 평균: 최근 WH시점에 대해 시간축(dim=1) 기준 이동 평균
+            prices_l_ma = torch.mean(prices_l[:, -WH:, :], dim=1, keepdim=True)  # (B, 1, N)
+            prices_l_ma = prices_l_ma.expand(-1, prices_l.shape[1], -1)  # (B, T, N)
+            prices_l_ma_flat = prices_l_ma.reshape(-1, prices_l.shape[2])  # (B*T, N)
 
-                zscores_TF = zscores_TF.cpu().detach().numpy()
-                thresholds_array = np.array([np.percentile(zscores_TF, i) for i in percentile_l])
-                thresholds_array_list.append(thresholds_array)
-            else:
-                pass
+            # 3. Z-score 계산
+            zscores = (prices_l_flat - prices_l_ma_flat) / 0.01  # (B*T, N)
+            zscores_np = zscores.cpu().detach().numpy()
 
+            # 4. 각 종목별 threshold 계산
+            for i in range(zscores_np.shape[1]):  # for each stock
+                thresholds = np.percentile(zscores_np[:, i], percentile_l)
+                thresholds_array_list.append(thresholds)
+
+        elif 'TF' in strategy:
+            # 2. 이동 평균 계산 (dim=1 기준 시간축)
+            prices_l = prices_l.transpose(2, 1)
+            prices_l_ma = movingaverage(prices_l, WH)  # (B, T, N)
+            prices_l_ma2 = movingaverage(prices_l, WH*2)  # (B, T, N)
+
+            prices_l_ma_flat = prices_l_ma.reshape(-1, prices_l.shape[2])  # (B*T, N)
+            prices_l_ma2_flat = prices_l_ma2.reshape(-1, prices_l.shape[2])  # (B*T, N)
+
+            # 3. Z-score 계산
+            zscores = (prices_l_ma_flat - prices_l_ma2_flat) / 0.01
+            zscores_np = zscores.cpu().detach().numpy()
+
+            # 4. 각 종목별 threshold 계산
+            for i in range(zscores_np.shape[1]):
+                thresholds = np.percentile(zscores_np[:, i], percentile_l)
+                thresholds_array_list.append(thresholds)
+
+        # 5. (N, len(percentile_l)) 형태
         thresholds_array_stocks = np.stack(thresholds_array_list)
+
         np.save(thresholds_path, thresholds_array_stocks)
     return thresholds_array_stocks

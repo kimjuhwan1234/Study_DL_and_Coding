@@ -31,7 +31,8 @@ def compute_multilevel_logsignature(brownian_path, time_brownian, time_u, time_t
 
 
 class LogSigRNNGenerator(nn.Module):
-    def __init__(self, input_dim, output_dim, augmentations, depth, hidden_dim, batch_size, window_size, device, len_noise=1000, len_interval_u=50,
+    def __init__(self, input_dim, output_dim, augmentations, depth, hidden_dim, batch_size, window_size, device,
+                 len_noise=1000, len_interval_u=50,
                  init_fixed=True):
         super().__init__()
         self.depth, self.augmentations, self.input_dim, self.output_dim, self.hidden_dim, self.init_fixed, self.batch_size, self.window_size, self.device = depth, augmentations, input_dim, output_dim, hidden_dim, init_fixed, batch_size, window_size, device
@@ -57,7 +58,7 @@ class LogSigRNNGenerator(nn.Module):
         )
         self.initial_nn.apply(init_weights)
 
-    def forward(self,):
+    def forward(self, ):
         time_t = torch.linspace(0, 1, self.window_size, device=self.device)
         z = torch.randn(self.batch_size, self.len_noise, self.input_dim, device=self.device)
         h = (self.time_brownian[1:] - self.time_brownian[:-1]).reshape(1, -1, 1).repeat(self.batch_size, 1,
@@ -87,7 +88,8 @@ class LogSigRNNGenerator(nn.Module):
 
 
 class LogSigRNNDecoder(nn.Module):
-    def __init__(self, input_dim, output_dim, augmentations, depth, hidden_dim, batch_size, window_size, device, len_interval_u=50,
+    def __init__(self, input_dim, output_dim, augmentations, depth, hidden_dim, batch_size, window_size, device,
+                 len_interval_u=50,
                  init_fixed=True):
         super().__init__()
         self.depth, self.augmentations, self.input_dim, self.output_dim, self.hidden_dim, self.init_fixed, self.batch_size, self.window_size, self.device = depth, augmentations, input_dim, output_dim, hidden_dim, init_fixed, batch_size, window_size, device

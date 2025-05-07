@@ -18,13 +18,14 @@ BoolTensor = torch.cuda.BoolTensor if cuda else torch.BoolTensor
 LongTensor = torch.cuda.LongTensor if cuda else torch.LongTensor
 
 # Set your path
-your_path = 'your_path'
+your_path = 'data/'
 
 trans_parent_data_path = join(your_path, 'Static_Port_Transform')
 
 
 # Convert increments to price by setting initial price as 1
 def Inc2Price(data):
+    data = data.transpose(1, 2)
     price0 = Tensor(data.shape[0], data.shape[1], 1).fill_(1)
     prices_l = torch.cat((price0, data), dim=2)
     prices_l = torch.cumsum(prices_l, dim=2)
@@ -248,9 +249,9 @@ def Position_TF(zscores, Cap, LR, SR, ST_tensor, LT_tensor):
 
 def TrendFollow(prices_l, Cap, WH, LR, SR, ST, LT):
     prices_l_flat = prices_l.reshape(prices_l.shape[0] * prices_l.shape[1], -1)
-
-    ST_tensor = torch.cat(prices_l.shape[0] * [Tensor(ST)]).reshape(-1, 1)
-    LT_tensor = torch.cat(prices_l.shape[0] * [Tensor(LT)]).reshape(-1, 1)
+    B, T, N = prices_l.shape
+    ST_tensor = torch.tensor(ST).view(1, N-1).repeat(B * T, 1)  # shape: (B*T, N)
+    LT_tensor = torch.tensor(LT).view(1, N-1).repeat(B * T, 1)  # shape: (B*T, N)
 
     prices_l_ma = movingaverage(prices_l, WH)
     prices_l_ma2 = movingaverage(prices_l, WH * 2)
@@ -260,7 +261,7 @@ def TrendFollow(prices_l, Cap, WH, LR, SR, ST, LT):
     # Compute the z-scores for each day using the historical data up to that day
     zscores = (prices_l_ma_flat - prices_l_ma2_flat) / 0.01
 
-    position = Position_TF(zscores, Cap, LR, SR, ST_tensor, LT_tensor)
+    position = Position_TF(zscores, Cap, LR, SR, ST_tensor.to(zscores.device), LT_tensor.to(zscores.device))
 
     PNL_TF_l = position[:, :-1] * (prices_l_flat[:, 1:] - prices_l_flat[:, :-1])
     PNL_TF = PNL_TF_l.reshape(prices_l.shape[0], prices_l.shape[1], -1)

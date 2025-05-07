@@ -1,10 +1,11 @@
 from functools import partial
+from typing import Tuple
 
 from torch import nn
 import torch
-from typing import Tuple
 
-def acf_torch(x: torch.Tensor, max_lag: int, dim:Tuple[int]=(0, 1)) -> torch.Tensor:
+
+def acf_torch(x: torch.Tensor, max_lag: int, dim: Tuple[int] = (0, 1)) -> torch.Tensor:
     """
 
     :param x: torch.Tensor [B, S, D]
@@ -118,6 +119,17 @@ class ACFLoss(Loss):
     def compute(self, x_fake):
         acf_fake = acf_torch(self.transform(x_fake), self.max_lag)
         return self.norm_foo(acf_fake - self.acf_real.to(x_fake.device))
+
+
+class ACFLoss_train(Loss):
+    def __init__(self, max_lag=64, **kwargs):
+        super(ACFLoss_train, self).__init__(norm_foo=acf_diff, **kwargs)
+        self.max_lag = max_lag
+
+    def compute(self, x_real, x_fake):
+        acf_fake = acf_torch(self.transform(x_fake), self.max_lag)
+        acf_real = acf_torch(self.transform(x_real), self.max_lag, dim=(0, 1))
+        return self.norm_foo(acf_fake - acf_real)
 
 
 class LevEffLoss(Loss):

@@ -17,16 +17,16 @@ def Compute_PNL(R, config):
         elif strategy == 'MR':
             for percentile_l in config['thresholds_pct']:
                 thresholds_array = gen_thresholds(config['data_name'],
-                                                  ['Gauss', 'AR50', 'AR-12', 'GARCH-T5', 'GARCH-T10'], strategy,
-                                                  percentile_l, 100, config['WH'])
+                                                  config['tickers'], strategy,
+                                                  percentile_l, config['WH'])
                 PNL_MR = MeanRev(prices_l, config['Cap'], config['WH'], LR=config['ratios'][0], SR=config['ratios'][1],
                                  ST=thresholds_array[:, -1], LT=thresholds_array[:, -2])
                 PNL_l.append(PNL_MR)
         elif strategy == 'TF':
             for percentile_l in config['thresholds_pct']:
                 thresholds_array = gen_thresholds(config['data_name'],
-                                                  ['Gauss', 'AR50', 'AR-12', 'GARCH-T5', 'GARCH-T10'], strategy,
-                                                  percentile_l, 100, config['WH'])
+                                                  config['tickers'], strategy,
+                                                  percentile_l, config['WH'])
                 PNL_TF = TrendFollow(prices_l, config['Cap'], config['WH'], LR=config['ratios'][0],
                                      SR=config['ratios'][1],
                                      ST=thresholds_array[:, 0], LT=thresholds_array[:, 1])

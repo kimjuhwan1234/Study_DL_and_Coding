@@ -4,8 +4,6 @@ import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
 
-
-
 def make_rnn_cell(rnn_type, input_dim, hidden_dim):
     if rnn_type == 'GRU':
         return nn.GRU(input_dim, hidden_dim, batch_first=True)
@@ -31,25 +29,26 @@ class Supervisor(nn.Module):
         return self.fc(out)
 
 
-
-
-
 def get_conv1d(in_channels, out_channels, kernel_size, stride, padding, dilation, groups, bias):
     return nn.Conv1d(in_channels=in_channels, out_channels=out_channels,
                      kernel_size=kernel_size, stride=stride,
                      padding=padding, dilation=dilation,
                      groups=groups, bias=bias)
 
+
 def get_bn(channels):
     return nn.BatchNorm1d(channels)
+
 
 def conv_bn(in_channels, out_channels, kernel_size, stride, padding, groups, dilation=1, bias=False):
     if padding is None:
         padding = kernel_size // 2
     result = nn.Sequential()
-    result.add_module('conv', get_conv1d(in_channels, out_channels, kernel_size, stride, padding, dilation, groups, bias))
+    result.add_module('conv',
+                      get_conv1d(in_channels, out_channels, kernel_size, stride, padding, dilation, groups, bias))
     result.add_module('bn', get_bn(out_channels))
     return result
+
 
 class RevIN(nn.Module):
     def __init__(self, num_features: int, eps=1e-5, affine=True, subtract_last=False):
@@ -107,6 +106,7 @@ class moving_avg(nn.Module):
         x = self.avg(x.permute(0, 2, 1))
         return x.permute(0, 2, 1)
 
+
 class series_decomp(nn.Module):
     def __init__(self, kernel_size):
         super().__init__()
@@ -124,7 +124,8 @@ class ReparamLargeKernelConv(nn.Module):
         self.small_kernel = small_kernel
         padding = kernel_size // 2
         if small_kernel_merged:
-            self.lkb_reparam = nn.Conv1d(in_channels, out_channels, kernel_size, stride, padding, groups=groups, bias=True)
+            self.lkb_reparam = nn.Conv1d(in_channels, out_channels, kernel_size, stride, padding, groups=groups,
+                                         bias=True)
         else:
             self.lkb_origin = conv_bn(in_channels, out_channels, kernel_size, stride, padding, groups)
             if small_kernel is not None:
