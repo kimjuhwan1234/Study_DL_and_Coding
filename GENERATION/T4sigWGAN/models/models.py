@@ -1,7 +1,7 @@
 from ..utils.loss import *
 
 
-class TimeGAN(nn.Module):
+class T4sigWGAN(nn.Module):
     def __init__(self, Encoder, Decoder, Generator, Supervisor, Discriminator):
         super().__init__()
         self.embedder = Encoder
