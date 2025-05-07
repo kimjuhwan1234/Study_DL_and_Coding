@@ -48,7 +48,7 @@ def deterministic_NeuralSort(s, tau):
     return P_hat
 
 
-class Discriminator(nn.Module):
+class tailGANDiscriminator(nn.Module):
     def __init__(self, config):
         super().__init__()
         self.config = config
