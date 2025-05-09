@@ -1,6 +1,7 @@
 import torch
 import pandas as pd
 from torch.utils.data import Dataset
+
 from ..utils.utils import sample_indices
 
 
@@ -37,7 +38,7 @@ def pct_change(x: torch.Tensor):
 
 
 class StockTimeSeriesDataset(Dataset):
-    def __init__(self, csv_path='data/sp500.csv', tickers=None, window_size=61):
+    def __init__(self, window_size, csv_path='data/sp500.csv', tickers=None):
         super().__init__()
         if tickers is None:
             tickers = ['AAPL', 'DIS', 'XOM', 'INTC', 'MSFT', 'AMZN', 'NVDA', 'CRM', 'GOOGL', 'TSLA']
@@ -47,6 +48,7 @@ class StockTimeSeriesDataset(Dataset):
         df = df[tickers].dropna()
         data = df.to_numpy(dtype='float32')
         data_tensor = torch.FloatTensor(data)
+        window_size = window_size + 1
 
         rolled = rolling_window(data_tensor, window_size)
         self.samples = pct_change(rolled)  # shape: (N, window_size-1, D)

@@ -31,11 +31,11 @@ def compute_multilevel_logsignature(brownian_path, time_brownian, time_u, time_t
 
 
 class LogSigRNNGenerator(nn.Module):
-    def __init__(self, input_dim, output_dim, augmentations, depth, hidden_dim, batch_size, window_size, device,
+    def __init__(self, input_dim, augmentations, depth, window_size, hidden_dim, device,
                  len_noise=1000, len_interval_u=50,
                  init_fixed=True):
         super().__init__()
-        self.depth, self.augmentations, self.input_dim, self.output_dim, self.hidden_dim, self.init_fixed, self.batch_size, self.window_size, self.device = depth, augmentations, input_dim, output_dim, hidden_dim, init_fixed, batch_size, window_size, device
+        self.depth, self.augmentations, self.input_dim, self.hidden_dim, self.init_fixed, self.device, self.window_size = depth, augmentations, input_dim, hidden_dim, init_fixed, device, window_size
 
         input_dim_rnn = get_number_of_channels_after_augmentations(input_dim, augmentations)
         logsig_channels = signatory.logsignature_channels(input_dim_rnn, depth)
@@ -58,10 +58,10 @@ class LogSigRNNGenerator(nn.Module):
         )
         self.initial_nn.apply(init_weights)
 
-    def forward(self, ):
+    def forward(self, batch_size):
         time_t = torch.linspace(0, 1, self.window_size, device=self.device)
-        z = torch.randn(self.batch_size, self.len_noise, self.input_dim, device=self.device)
-        h = (self.time_brownian[1:] - self.time_brownian[:-1]).reshape(1, -1, 1).repeat(self.batch_size, 1,
+        z = torch.randn(batch_size, self.len_noise, self.input_dim, device=self.device)
+        h = (self.time_brownian[1:] - self.time_brownian[:-1]).reshape(1, -1, 1).repeat(batch_size, 1,
                                                                                         self.input_dim).to(self.device)
         z[:, 1:] *= torch.sqrt(h)
         z[:, 0] = 0
@@ -72,9 +72,9 @@ class LogSigRNNGenerator(nn.Module):
                                                                 self.time_u.to(self.device), time_t, self.depth)
         u_logsigrnn.append(time_t[-1])
 
-        h0 = torch.zeros(self.batch_size, self.hidden_dim, device=self.device) if self.init_fixed else self.initial_nn(
-            torch.randn(self.batch_size, self.input_dim, device=self.device))
-        last_h, x = h0, torch.zeros(self.batch_size, self.window_size, self.hidden_dim, device=self.device)
+        h0 = torch.zeros(batch_size, self.hidden_dim, device=self.device) if self.init_fixed else self.initial_nn(
+            torch.randn(batch_size, self.input_dim, device=self.device))
+        last_h, x = h0, torch.zeros(batch_size, self.window_size, self.hidden_dim, device=self.device)
 
         for idx, (t, y_logsig_) in enumerate(zip(time_t, y_logsig)):
             h = self.rnn(torch.cat([last_h, y_logsig_], dim=-1))
@@ -87,12 +87,12 @@ class LogSigRNNGenerator(nn.Module):
         return x
 
 
-class LogSigRNNDecoder(nn.Module):
-    def __init__(self, input_dim, output_dim, augmentations, depth, hidden_dim, batch_size, window_size, device,
+class LogSigRNNEncoder(nn.Module):
+    def __init__(self, input_dim, augmentations, depth, hidden_dim, batch_size, window_size, device,
                  len_interval_u=50,
                  init_fixed=True):
         super().__init__()
-        self.depth, self.augmentations, self.input_dim, self.output_dim, self.hidden_dim, self.init_fixed, self.batch_size, self.window_size, self.device = depth, augmentations, input_dim, output_dim, hidden_dim, init_fixed, batch_size, window_size, device
+        self.depth, self.augmentations, self.input_dim, self.hidden_dim, self.init_fixed, self.batch_size, self.window_size, self.device = depth, augmentations, input_dim, hidden_dim, init_fixed, batch_size, window_size, device
         input_dim_rnn = get_number_of_channels_after_augmentations(input_dim, augmentations)
         logsig_channels = signatory.logsignature_channels(input_dim_rnn, depth)
 

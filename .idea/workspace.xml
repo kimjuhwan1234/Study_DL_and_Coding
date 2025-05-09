@@ -5,10 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment=".">
+      <change beforePath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Baekjoon.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baekjoon.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DenseNet/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/DenseNet/parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/sigwgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/sigwgan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/supervisor.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/supervisor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/tailgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/tailgan.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/Transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/Transform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/augmentations.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/augmentations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/data/Static_Port_Transform/LShort_Stk10/TransMat_IS.npy" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/data/Static_Port_Transform/LShort_Stk10/TransMat_IS.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/data/Static_Port_Transform/LShort_Stk10/TransMat_OOS.npy" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/data/Static_Port_Transform/LShort_Stk10/TransMat_OOS.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/data/Thresholds/AAPL_DIS_XOM_INTC_MSFT_AMZN_NVDA_CRM_GOOG_TSLA/AAPL_DIS_XOM_INTC_MSFT_AMZN_NVDA_CRM_GOOG_TSLA_MR_31_69.npy" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/data/Thresholds/AAPL_DIS_XOM_INTC_MSFT_AMZN_NVDA_CRM_GOOG_TSLA/AAPL_DIS_XOM_INTC_MSFT_AMZN_NVDA_CRM_GOOG_TSLA_MR_31_69.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/GAT__TCN.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/GAT__TCN.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +66,9 @@
     &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
     &quot;Python.TS_generation.executor&quot;: &quot;Debug&quot;,
     &quot;Python.evaluate.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.gen_static_port (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.gen_static_port.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gen_synthetic.executor&quot;: &quot;Run&quot;,
     &quot;Python.inference.executor&quot;: &quot;Run&quot;,
     &quot;Python.main (1).executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Debug&quot;,
@@ -63,17 +81,17 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/Documents/GitHub/Study/Study_DL_and_Coding/GENERATION/T4sigWGAN&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/Documents/GitHub/Study/Study_DL_and_Coding/GENERATION/T4sigWGAN/utils&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4sigWGAN\utils" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4sigWGAN" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\metric" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\network" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\utils" />
-      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\scratch" />
@@ -83,7 +101,7 @@
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\utils" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.TS_generation">
+  <component name="RunManager" selected="Python.gen_synthetic">
     <configuration name="TS_generation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Study_DL_and_Coding" />
       <option name="ENV_FILES" value="" />
@@ -150,7 +168,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="evaluate" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="gen_static_port (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Study_DL_and_Coding" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -159,11 +177,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RISK_ESTIMATION" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GENERATION" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RISK_ESTIMATION/evaluate.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GENERATION/gen_static_port.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -172,7 +190,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="metrics" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="gen_static_port" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Study_DL_and_Coding" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -181,11 +199,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RISK_ESTIMATION/back_testing" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/metrics.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/gen_static_port.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gen_synthetic" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Study_DL_and_Coding" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GENERATION" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GENERATION/gen_synthetic.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -252,28 +292,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GENERATION/sigwgan.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Study_DL_and_Coding" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/SigCWGAN" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SigCWGAN/train.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -306,11 +324,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.gen_synthetic" />
+        <item itemvalue="Python.gen_static_port (1)" />
+        <item itemvalue="Python.gen_static_port" />
         <item itemvalue="Python.TS_generation" />
         <item itemvalue="Python.sigwgan" />
-        <item itemvalue="Python.metrics" />
-        <item itemvalue="Python.evaluate" />
-        <item itemvalue="Python.train" />
       </list>
     </recent_temporary>
   </component>
@@ -391,23 +409,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/gen_thresholds.py</url>
-          <line>77</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/gen_thresholds.py</url>
-          <line>76</line>
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/models/tailgan.py</url>
-          <line>85</line>
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py</url>
-          <line>128</line>
-          <option name="timeStamp" value="62" />
+          <line>48</line>
+          <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb</url>
@@ -436,18 +439,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb</url>
-          <line>200</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb</url>
-          <line>213</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb</url>
-          <line>226</line>
-          <option name="timeStamp" value="45" />
+          <line>41</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

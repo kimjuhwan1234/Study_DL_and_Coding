@@ -1,5 +1,7 @@
-import torch
 import argparse
+
+import torch
+
 from .utils.augmentations import parse_augmentations
 
 parser = argparse.ArgumentParser()
@@ -20,106 +22,85 @@ parser.add_argument("--lr", type=float, default=0.001, help="learning rate of ad
 parser.add_argument("--weight_decay", type=float, default=0.0, help="weight_decay of adam")
 parser.add_argument("--log_freq", type=int, default=5, help="per epoch print res")
 
+# common model parameter
+parser.add_argument("--input_size", type=int, default=10, help="input size of model")
+parser.add_argument("--hidden_size", type=int, default=256, help="hidden size of model")
+parser.add_argument("--window_size", type=int, default=60, help="number of window_size")
+parser.add_argument("--batch_size", type=int, default=128, help="number of batch_size")
+
 args, unknown = parser.parse_known_args()
 
 ## decoder parameters
 decoder_config = {
-    'ts_shape': [60, 256],
+    'ts_shape': [args.window_size, args.hidden_size],
     'num_heads': 2,
     'k_size': 4,
     'dilations': [1, 4],
     'dropout': 0.2,
 }
 
-class Configs:
-    def __init__(self, ):
-        self.enc_in = 256
-        self.dims = [256, 128, 256]
-        self.large_size = [5, 5, 3]
-        self.small_size = [5, 3, 3]
-        self.small_kernel_merged = False
-        self.dropout = 0.1
-        self.head_dropout = 0.2
-        self.revin = True
-        self.affine = True
-        self.decomposition = True
-        self.kernel_size = 25
-
-
 ## supervisor parameters
-supervisor_config = Configs()
+supervisor_config = {
+    "enc_in": args.hidden_size,
+    "dims": [args.hidden_size, 128, args.hidden_size],
+    "large_size": [5, 5, 3],
+    "small_size": [5, 3, 3],
+    "small_kernel_merged": False,
+    "revin": True,
+    "affine": True,
+    "decomposition": True,
+    "kernel_size": 25,
+}
 
-
-## generator parameters
+## encoder parameters
 encoder_config = {
-    "input_dim": 10,
-    "hidden_dim": 256,
+    "input_dim": args.input_size,
     "augmentations": [
         {"name": "LeadLag"},
     ],
     "depth": 2,
-    "output_dim": 10,
+    "hidden_dim": args.hidden_size,
+    "batch_size": args.batch_size,
+    "window_size": args.window_size,
+    "device": "cuda:0",
     "len_interval_u": 50,
     "init_fixed": True,
-    "batch_size": 128,
-    "window_size": 60,
-    "device": "cuda:0",
 }
 
 if encoder_config.get('augmentations') is not None:
     encoder_config['augmentations'] = parse_augmentations(encoder_config.get('augmentations'))
 
-
 ## generator parameters
 logsig_config = {
-    "input_dim": 10,
-    "hidden_dim": 256,
+    "input_dim": args.input_size,
     "augmentations": [
         {"name": "LeadLag"},
     ],
     "depth": 2,
-    "output_dim": 10,
+    "window_size": args.window_size,
+    "hidden_dim": args.hidden_size,
+    "device": "cuda:0",
     "len_noise": 1000,
     "len_interval_u": 50,
     "init_fixed": True,
-    "batch_size": 128,
-    "window_size": 60,
-    "device": "cuda:0",
 }
 
 if logsig_config.get('augmentations') is not None:
     logsig_config['augmentations'] = parse_augmentations(logsig_config.get('augmentations'))
 
-
 ## discriminator parameters
 discriminator_config = {
-    'n_epochs': 3000,
-    'batch_size': 128,
-    'lr_D': 1e-7,
-    'lr_G': 1e-6,
+    'W': 10.0,
+    'project': True,
+    'alphas': [0.05],
     'temp': 0.01,
-    'b1': 0.5,
-    'b2': 0.999,
-    'latent_dim': 1000,
-    'n_len': 50000,
-    'n_rows': 5,
-    'n_cols': 100,
-    'n_critic_G': 1,
-    'n_critic_D': 1,
+    'batch_size': args.batch_size,
     'static_way': 'LShort',
-    'strategies': ['Port', 'MR', 'TF'],
-    'n_trans': 50,
     'Cap': 10,
-    'WH': 30,
-    'ratios': [1.0, 1.0],
+    'strategies': ['Port', 'MR', 'TF'],
     'thresholds_pct': [[31, 69]],
     'data_name': 'AAPL_DIS_XOM_INTC_MSFT_AMZN_NVDA_CRM_GOOG_TSLA',
     'tickers': ['AAPL', 'DIS', 'XOM', 'INTC', 'MSFT', 'AMZN', 'NVDA', 'CRM', 'GOOG', 'TSLA'],
-    'noise_name': 't5',
-    'alphas': [0.05],
-    'W': 10.0,
-    'score': 'quant',
-    'numNN': 10,
-    'project': True,
-    'version': 'Test1'
+    'WH': 30,
+    'ratios': [1.0, 1.0],
 }

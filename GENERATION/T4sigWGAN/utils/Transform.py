@@ -1,14 +1,6 @@
-"""
-Convert the raw returns/price scenarios to strategy PnLs
-"""
-import numpy as np
-import os
-import random
-import statsmodels.api as sm
-from sklearn.datasets import make_sparse_spd_matrix, make_spd_matrix
-from statsmodels.stats.moment_helpers import cov2corr, corr2cov
 from os.path import *
 
+import numpy as np
 import torch
 from torch import nn
 
@@ -56,7 +48,7 @@ def StaticPort(prices_l, n_trans, static_way, insample):
         store_path = join(trans_data_path, 'TransMat_OOS.npy')
 
     trans_mat = np.load(store_path)
-    trans_mat = Tensor(trans_mat[:, :n_trans])
+    trans_mat = torch.tensor(trans_mat[:, :n_trans], dtype=torch.float32, device=prices_l.device)
 
     swap_prices = prices_l.permute(0, 2, 1)
     broad_trans_mat = trans_mat.reshape(1, *trans_mat.shape)
@@ -84,7 +76,7 @@ def movingaverage(values, WH):
     mean_conv.bias.requires_grad = False
     output_l = [mean_conv(values[:, [ch], :].float()) for ch in range(values.shape[1])]
     all_output = values.clone()
-    all_output[:, :, WH-1:] = torch.cat(output_l, dim=1)
+    all_output[:, :, WH - 1:] = torch.cat(output_l, dim=1)
     return all_output
 
 
@@ -120,7 +112,8 @@ def Position_MR(zscores, Cap, LR, SR, ST_tensor, LT_tensor):
     pos_clear = torch.zeros(len(short_flat))
     pos_clear[clear_ts[clear_ts % zscores.shape[-1] != 0]] = 1
 
-    short_pos = torch.cumsum(pos_short.reshape(zscores.shape), dim=1) + torch.cumsum(pos_clear.reshape(zscores.shape), dim=1)
+    short_pos = torch.cumsum(pos_short.reshape(zscores.shape), dim=1) + torch.cumsum(pos_clear.reshape(zscores.shape),
+                                                                                     dim=1)
     short_pos = short_pos.type(Tensor)
 
     # # # # # # # # LONG SCENARIO  # # # # # # # #
@@ -148,7 +141,8 @@ def Position_MR(zscores, Cap, LR, SR, ST_tensor, LT_tensor):
     pos_clear = torch.zeros(len(long_flat))
     pos_clear[clear_ts[clear_ts % zscores.shape[-1] != 0]] = -1
 
-    long_pos = torch.cumsum(pos_long.reshape(zscores.shape), dim=1) + torch.cumsum(pos_clear.reshape(zscores.shape), dim=1)
+    long_pos = torch.cumsum(pos_long.reshape(zscores.shape), dim=1) + torch.cumsum(pos_clear.reshape(zscores.shape),
+                                                                                   dim=1)
     long_pos = long_pos.type(Tensor)
 
     position = Cap * SR * short_pos + Cap * LR * long_pos
@@ -164,7 +158,7 @@ def MeanRev(prices_l, Cap, WH, LR, SR, ST, LT):
 
     # moving average
     # prices_l_ma_raw = movingaverage(prices_l, WH)
-    prices_l_ma = torch.mean(prices_l[:, :, :WH+1], dim=2)
+    prices_l_ma = torch.mean(prices_l[:, :, :WH + 1], dim=2)
     prices_l_ma_flat = prices_l_ma.view(prices_l_ma.shape[0] * prices_l_ma.shape[1], -1)
 
     # Compute the z-scores for each day using the historical data up to that day
@@ -211,7 +205,8 @@ def Position_TF(zscores, Cap, LR, SR, ST_tensor, LT_tensor):
     pos_clear = torch.zeros(len(short_flat))
     pos_clear[clear_ts[clear_ts % zscores.shape[-1] != 0]] = 1
 
-    short_pos = torch.cumsum(pos_short.reshape(zscores.shape), dim=1) + torch.cumsum(pos_clear.reshape(zscores.shape), dim=1)
+    short_pos = torch.cumsum(pos_short.reshape(zscores.shape), dim=1) + torch.cumsum(pos_clear.reshape(zscores.shape),
+                                                                                     dim=1)
     short_pos = short_pos.type(Tensor)
 
     # # # # # # # # LONG SCENARIO  # # # # # # # #
@@ -239,7 +234,8 @@ def Position_TF(zscores, Cap, LR, SR, ST_tensor, LT_tensor):
     pos_clear = torch.zeros(len(long_flat))
     pos_clear[clear_ts[clear_ts % zscores.shape[-1] != 0]] = -1
 
-    long_pos = torch.cumsum(pos_long.reshape(zscores.shape), dim=1) + torch.cumsum(pos_clear.reshape(zscores.shape), dim=1)
+    long_pos = torch.cumsum(pos_long.reshape(zscores.shape), dim=1) + torch.cumsum(pos_clear.reshape(zscores.shape),
+                                                                                   dim=1)
     long_pos = long_pos.type(Tensor)
 
     position = Cap * SR * short_pos + Cap * LR * long_pos
@@ -250,8 +246,8 @@ def Position_TF(zscores, Cap, LR, SR, ST_tensor, LT_tensor):
 def TrendFollow(prices_l, Cap, WH, LR, SR, ST, LT):
     prices_l_flat = prices_l.reshape(prices_l.shape[0] * prices_l.shape[1], -1)
     B, T, N = prices_l.shape
-    ST_tensor = torch.tensor(ST).view(1, N-1).repeat(B * T, 1)  # shape: (B*T, N)
-    LT_tensor = torch.tensor(LT).view(1, N-1).repeat(B * T, 1)  # shape: (B*T, N)
+    ST_tensor = torch.tensor(ST).view(1, N - 1).repeat(B * T, 1)  # shape: (B*T, N)
+    LT_tensor = torch.tensor(LT).view(1, N - 1).repeat(B * T, 1)  # shape: (B*T, N)
 
     prices_l_ma = movingaverage(prices_l, WH)
     prices_l_ma2 = movingaverage(prices_l, WH * 2)

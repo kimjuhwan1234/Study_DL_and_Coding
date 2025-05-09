@@ -4,29 +4,29 @@ import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
 
-def make_rnn_cell(rnn_type, input_dim, hidden_dim):
-    if rnn_type == 'GRU':
-        return nn.GRU(input_dim, hidden_dim, batch_first=True)
-    elif rnn_type == 'LSTM':
-        return nn.LSTM(input_dim, hidden_dim, batch_first=True)
-    else:
-        raise ValueError("Unsupported RNN type")
-
-
-class Supervisor(nn.Module):
-    def __init__(self, hidden_dim):
-        super().__init__()
-        self.rnn = make_rnn_cell('GRU', hidden_dim, hidden_dim)
-        self.fc = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.Sigmoid()
-        )
-
-    def forward(self, h, lengths):
-        packed = pack_padded_sequence(h, lengths.cpu(), batch_first=True, enforce_sorted=False)
-        out_packed, _ = self.rnn(packed)
-        out, _ = pad_packed_sequence(out_packed, batch_first=True)
-        return self.fc(out)
+# def make_rnn_cell(rnn_type, input_dim, hidden_dim):
+#     if rnn_type == 'GRU':
+#         return nn.GRU(input_dim, hidden_dim, batch_first=True)
+#     elif rnn_type == 'LSTM':
+#         return nn.LSTM(input_dim, hidden_dim, batch_first=True)
+#     else:
+#         raise ValueError("Unsupported RNN type")
+#
+#
+# class Supervisor(nn.Module):
+#     def __init__(self, hidden_dim):
+#         super().__init__()
+#         self.rnn = make_rnn_cell('GRU', hidden_dim, hidden_dim)
+#         self.fc = nn.Sequential(
+#             nn.Linear(hidden_dim, hidden_dim),
+#             nn.Sigmoid()
+#         )
+#
+#     def forward(self, h, lengths):
+#         packed = pack_padded_sequence(h, lengths.cpu(), batch_first=True, enforce_sorted=False)
+#         out_packed, _ = self.rnn(packed)
+#         out, _ = pad_packed_sequence(out_packed, batch_first=True)
+#         return self.fc(out)
 
 
 def get_conv1d(in_channels, out_channels, kernel_size, stride, padding, dilation, groups, bias):
@@ -154,25 +154,25 @@ class ReparamLargeKernelConv(nn.Module):
 class ModernTCN(nn.Module):
     def __init__(self, configs):
         super().__init__()
-        self.revin = RevIN(configs.enc_in, affine=configs.affine) if configs.revin else None
-        self.decomp = series_decomp(configs.kernel_size) if configs.decomposition else None
+        self.revin = RevIN(configs["enc_in"], affine=configs["affine"]) if configs["revin"] else None
+        self.decomp = series_decomp(configs["kernel_size"]) if configs["decomposition"] else None
 
         self.conv_layers = nn.ModuleList()
         self.norm_layers = nn.ModuleList()
 
-        c_in = configs.enc_in
-        for i in range(len(configs.dims)):
-            conv = ReparamLargeKernelConv(c_in, configs.dims[i],
-                                          kernel_size=configs.large_size[i],
-                                          stride=1,
-                                          groups=1,
-                                          small_kernel=configs.small_size[i],
-                                          small_kernel_merged=configs.small_kernel_merged)
+        c_in = configs["enc_in"]
+        for i in range(len(configs["dims"])):
+            conv = ReparamLargeKernelConv(
+                c_in, configs["dims"][i],
+                kernel_size=configs["large_size"][i],
+                stride=1,
+                groups=1,
+                small_kernel=configs["small_size"][i],
+                small_kernel_merged=configs["small_kernel_merged"]
+            )
             self.conv_layers.append(conv)
-            self.norm_layers.append(nn.BatchNorm1d(configs.dims[i]))
-            c_in = configs.dims[i]
-
-        # self.head = Flatten_Head(configs.dims[-1])
+            self.norm_layers.append(nn.BatchNorm1d(configs["dims"][i]))
+            c_in = configs["dims"][i]
 
     def forward(self, x):  # x: [B, T, C]
         if self.revin:
@@ -186,3 +186,4 @@ class ModernTCN(nn.Module):
             x = F.relu(x)
         out = x.transpose(1, 2)
         return out
+

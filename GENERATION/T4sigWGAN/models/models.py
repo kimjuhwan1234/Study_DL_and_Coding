@@ -2,36 +2,44 @@ from ..utils.loss import *
 
 
 class T4sigWGAN(nn.Module):
-    def __init__(self, Encoder, Decoder, Generator, Supervisor, Discriminator):
+    def __init__(self, Encoder, Decoder, Generator, Supervisor, Discriminator, batch_size):
         super().__init__()
         self.embedder = Encoder
         self.recovery = Decoder
         self.generator = Generator
         self.supervisor = Supervisor
         self.discriminator = Discriminator
+        self.batch_size = batch_size
 
-    def forward(self, x, stage):
+    def forward(self, stage, x=None):
 
-        if stage == 'Pretrain_1':
-            h = self.embedder(x)
-            x_tilde = self.recovery(h)
-            loss = mse(x, x_tilde)
-            return x_tilde, loss
+        if x is not None:
+            if stage == 'Pretrain_1':
+                h = self.embedder(x)
+                x_tilde = self.recovery(h)
+                loss = mse(x, x_tilde)
+                return x_tilde, loss
 
-        elif stage == 'Pretrain_2':
-            h = self.embedder(x)
-            h_hat_supervise = self.supervisor(h)
-            loss = sigcwgan_loss(h[:, 1:, :], h_hat_supervise[:, :-1, :])
-            x_tilde = self.recovery(h)
-            return x_tilde, loss
+            elif stage == 'Pretrain_2':
+                h = self.embedder(x)
+                h_hat_supervise = self.supervisor(h)
+                loss = sigcwgan_loss(h[:, 1:, :], h_hat_supervise[:, :-1, :])
+                x_tilde = self.recovery(h)
+                return x_tilde, loss
+
+            else:
+                e_hat = self.generator(self.batch_size)
+                h_hat = self.supervisor(e_hat)
+                h = self.embedder(x)
+                loss = sigcwgan_loss(h, h_hat)
+                x_hat = self.recovery(h_hat)
+                return x_hat, loss
 
         else:
-            e_hat = self.generator()
+            e_hat = self.generator(stage)
             h_hat = self.supervisor(e_hat)
-            h = self.embedder(x)
-            loss = sigcwgan_loss(h, h_hat)
             x_hat = self.recovery(h_hat)
-            return x_hat, loss
+            return x_hat.detach().cpu().numpy()
 
 # g_loss_u = nn.BCEWithLogitsLoss()(out['y_fake'], torch.ones_like(out['y_fake']))
 # g_loss_ue = nn.BCEWithLogitsLoss()(out['y_fake_e'], torch.ones_like(out['y_fake_e']))

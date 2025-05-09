@@ -104,6 +104,9 @@ class Trainer:
         plot_hist(loss_df.index, loss_df, 'Loss')
         plot_hist(acc_df.index, acc_df, 'R2')
 
+        self.train_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
+        self.val_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
+
 
 class FinetuneTrainer(Trainer):
     def __init__(self, args, model, train_dataloader, eval_dataloader):
@@ -129,37 +132,40 @@ class FinetuneTrainer(Trainer):
             for i, batch in rec_data_iter:
                 input = batch.to(self.device)
                 if stage == "Pretrain_1":
-                    x_tilde, loss = self.model(input, stage)
+                    x_tilde, loss = self.model(stage, input)
                     self.optim_dict['E'].zero_grad()
                     loss.backward()
                     self.optim_dict['E'].step()
 
                 elif stage == "Pretrain_2":
-                    x_tilde, loss = self.model(input, stage)
+                    x_tilde, loss = self.model(stage, input)
                     self.optim_dict['S'].zero_grad()
                     loss.backward()
                     self.optim_dict['S'].step()
 
                 else:
-                    x_hat, loss = self.model(input, stage)
+                    x_hat, loss = self.model(stage, input)
                     PNL, PNL_validity = self.model.discriminator(input)
                     gen_PNL, gen_PNL_validity = self.model.discriminator(x_hat)
-                    real_score = self.criterion(PNL_validity, PNL)
-                    fake_score = self.criterion(gen_PNL_validity, PNL)
-                    loss_D = real_score - fake_score
-                    loss_G = fake_score
 
-                    self.optim_dict['G'].zero_grad()
-                    loss.backward(retain_graph=True)
-                    self.optim_dict['G'].step()
+                    fake_score = self.criterion(gen_PNL_validity, PNL)
+                    real_score = self.criterion(PNL_validity, PNL)
+                    loss_G = fake_score
+                    loss_D = real_score - fake_score
+
+                    self.optim_dict['R'].zero_grad()
+                    loss_G.backward(retain_graph=True)
+                    self.optim_dict['R'].step()
 
                     self.optim_dict['D'].zero_grad()
                     loss_D.backward(retain_graph=True)
                     self.optim_dict['D'].step()
 
-                    self.optim_dict['R'].zero_grad()
-                    loss_G.backward()
-                    self.optim_dict['R'].step()
+                    self.optim_dict['G'].zero_grad()
+                    loss.backward()
+                    self.optim_dict['G'].step()
+
+
 
                 cur_loss = loss
                 total_loss += loss
@@ -192,13 +198,13 @@ class FinetuneTrainer(Trainer):
                 for i, batch in rec_data_iter:
                     input = batch.to(self.device)
                     if stage == "Pretrain_1":
-                        x_tilde, loss = self.model(input, stage)
+                        x_tilde, loss = self.model(stage, input)
 
                     elif stage == "Pretrain_2":
-                        x_tilde, loss = self.model(input, stage)
+                        x_tilde, loss = self.model(stage, input)
 
                     else:
-                        x_hat, loss = self.model(input, stage)
+                        x_hat, loss = self.model(stage, input)
                         PNL, PNL_validity = self.model.discriminator(input)
                         gen_PNL, gen_PNL_validity = self.model.discriminator(x_hat)
                         real_score = self.criterion(PNL_validity, PNL)
@@ -225,8 +231,9 @@ class FinetuneTrainer(Trainer):
                 self.lr_dict['S'].step(avg_loss)
 
             else:
+                self.lr_dict['R'].step(avg_loss)
                 self.lr_dict['G'].step(avg_loss)
                 self.lr_dict['D'].step(avg_loss)
-                self.lr_dict['R'].step(avg_loss)
+
 
             return avg_loss.cpu().detach().numpy()

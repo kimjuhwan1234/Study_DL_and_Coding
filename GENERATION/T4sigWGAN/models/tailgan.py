@@ -1,6 +1,6 @@
 from ..utils.Transform import *
 from ..utils.gen_thresholds import gen_thresholds
-
+from torch.autograd import Variable
 np.random.seed(1)
 torch.manual_seed(1)
 
@@ -59,25 +59,33 @@ class tailGANDiscriminator(nn.Module):
         self.batch_size = config['batch_size']
         self.model = nn.Sequential(
             nn.Linear(self.batch_size, 256),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(0.2, inplace=False),
             nn.Linear(256, 128),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.LeakyReLU(0.2, inplace=False),
             nn.Linear(128, 2 * len(self.alphas))
         )
 
     def project_op(self, validity):
+        validity_out = validity.clone()  # 새로운 텐서로 복사
+
         for i, alpha in enumerate(self.alphas):
             v = validity[:, 2 * i].clone()
             e = validity[:, 2 * i + 1].clone()
             indicator = torch.sign(torch.tensor(0.5 - alpha))
-            validity[:, 2 * i] = indicator * (
-                    (self.W * v < e).float() * v + (self.W * v >= e).float() * (v + self.W * e) / (1 + self.W ** 2))
-            validity[:, 2 * i + 1] = indicator * (
-                    (self.W * v < e).float() * e + (self.W * v >= e).float() * self.W * (v + self.W * e) / (
-                    1 + self.W ** 2))
-        return validity
+
+            cond = (self.W * v < e).float()
+            not_cond = 1.0 - cond
+
+            v_new = indicator * (cond * v + not_cond * (v + self.W * e) / (1 + self.W ** 2))
+            e_new = indicator * (cond * e + not_cond * self.W * (v + self.W * e) / (1 + self.W ** 2))
+
+            validity_out[:, 2 * i] = v_new
+            validity_out[:, 2 * i + 1] = e_new
+
+        return validity_out
 
     def forward(self, R):
+        R=Variable(R.type(Tensor), requires_grad=True)
         PNL = Compute_PNL(R, self.config)
         PNL_transpose = PNL.T
         PNL_s = PNL_transpose.unsqueeze(-1)
