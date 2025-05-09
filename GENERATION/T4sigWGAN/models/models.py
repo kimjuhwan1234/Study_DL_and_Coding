@@ -10,6 +10,7 @@ class T4sigWGAN(nn.Module):
         self.supervisor = Supervisor
         self.discriminator = Discriminator
         self.batch_size = batch_size
+        self.criterion = Score()
 
     def forward(self, stage, x=None):
 
@@ -33,7 +34,17 @@ class T4sigWGAN(nn.Module):
                 h = self.embedder(x)
                 loss = sigcwgan_loss(h, h_hat)
                 x_hat = self.recovery(h_hat)
-                return x_hat, loss
+
+                PNL, PNL_validity = self.discriminator(x)
+                gen_PNL, gen_PNL_validity = self.discriminator(x_hat)
+
+                fake_score = self.criterion(gen_PNL_validity, PNL)
+                real_score = self.criterion(PNL_validity, PNL)
+                loss_G = fake_score
+                loss_D = real_score - fake_score
+
+
+                return x_hat, loss, loss_G, loss_D
 
         else:
             e_hat = self.generator(stage)

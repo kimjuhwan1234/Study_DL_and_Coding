@@ -17,7 +17,7 @@ class Trainer:
         self.eval_dataloader = eval_dataloader
         self.file_name = args.ROOT_DIR + args.data_name + args.model_name + ".pt"
 
-        self.criterion = Score()
+
 
         self.train_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
         self.val_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
@@ -144,14 +144,14 @@ class FinetuneTrainer(Trainer):
                     self.optim_dict['S'].step()
 
                 else:
-                    x_hat, loss = self.model(stage, input)
-                    PNL, PNL_validity = self.model.discriminator(input)
-                    gen_PNL, gen_PNL_validity = self.model.discriminator(x_hat)
-
-                    fake_score = self.criterion(gen_PNL_validity, PNL)
-                    real_score = self.criterion(PNL_validity, PNL)
-                    loss_G = fake_score
-                    loss_D = real_score - fake_score
+                    x_hat, loss, loss_G, loss_D = self.model(stage, input)
+                    # PNL, PNL_validity = self.model.discriminator(input)
+                    # gen_PNL, gen_PNL_validity = self.model.discriminator(x_hat)
+                    #
+                    # fake_score = self.criterion(gen_PNL_validity, PNL)
+                    # real_score = self.criterion(PNL_validity, PNL)
+                    # loss_G = fake_score
+                    # loss_D = real_score - fake_score
 
                     self.optim_dict['R'].zero_grad()
                     loss_G.backward(retain_graph=True)
@@ -204,13 +204,13 @@ class FinetuneTrainer(Trainer):
                         x_tilde, loss = self.model(stage, input)
 
                     else:
-                        x_hat, loss = self.model(stage, input)
-                        PNL, PNL_validity = self.model.discriminator(input)
-                        gen_PNL, gen_PNL_validity = self.model.discriminator(x_hat)
-                        real_score = self.criterion(PNL_validity, PNL)
-                        fake_score = self.criterion(gen_PNL_validity, PNL)
-                        loss_D = real_score - fake_score
-                        loss_G = fake_score
+                        x_hat, loss, loss_G, loss_D = self.model(stage, input)
+                        # PNL, PNL_validity = self.model.discriminator(input)
+                        # gen_PNL, gen_PNL_validity = self.model.discriminator(x_hat)
+                        # real_score = self.criterion(PNL_validity, PNL)
+                        # fake_score = self.criterion(gen_PNL_validity, PNL)
+                        # loss_D = real_score - fake_score
+                        # loss_G = fake_score
 
                     total_loss += loss
                     total_acc += 0

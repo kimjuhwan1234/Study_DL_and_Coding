@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Baekjoon.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Baekjoon.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/DenseNet/parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/sigwgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/sigwgan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/supervisor.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/supervisor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/tailgan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/tailgan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/Transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/Transform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/augmentations.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/augmentations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/data/Static_Port_Transform/LShort_Stk10/TransMat_IS.npy" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/data/Static_Port_Transform/LShort_Stk10/TransMat_IS.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/data/Static_Port_Transform/LShort_Stk10/TransMat_OOS.npy" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/data/Static_Port_Transform/LShort_Stk10/TransMat_OOS.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/data/Thresholds/AAPL_DIS_XOM_INTC_MSFT_AMZN_NVDA_CRM_GOOG_TSLA/AAPL_DIS_XOM_INTC_MSFT_AMZN_NVDA_CRM_GOOG_TSLA_MR_31_69.npy" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/data/Thresholds/AAPL_DIS_XOM_INTC_MSFT_AMZN_NVDA_CRM_GOOG_TSLA/AAPL_DIS_XOM_INTC_MSFT_AMZN_NVDA_CRM_GOOG_TSLA_MR_31_69.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/GAT__TCN.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/GAT__TCN.ipynb" afterDir="false" />
-    </list>
+    <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment="." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
