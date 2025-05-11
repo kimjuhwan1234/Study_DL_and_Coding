@@ -48,7 +48,7 @@ class Trainer:
         )
 
         self.optim_dict['S'] = Adam(
-            self.model.supervisor.parameters(),
+            list(self.model.generator.parameters()) + list(self.model.supervisor.parameters()),
             lr=self.args.lr,
             betas=betas,
             weight_decay=self.args.weight_decay,
@@ -80,10 +80,10 @@ class Trainer:
 
     def save(self):
         torch.save(self.model.cpu().state_dict(), self.file_name)
-        self.model.to(self.device)
 
     def load(self):
         self.model.load_state_dict(torch.load(self.file_name))
+        self.model.to(self.device)
 
     def metric(self, output, gt):
         """R-squared (R²) 계산"""
@@ -91,7 +91,7 @@ class Trainer:
         correct = (predicted == gt).sum().item()
         return correct
 
-    def evaluate(self):
+    def evaluate(self, title):
         self.train_hist = self.train_hist.applymap(
             lambda x: x.cpu().detach().numpy() if isinstance(x, torch.Tensor) else x)
         self.val_hist = self.val_hist.applymap(
@@ -101,11 +101,11 @@ class Trainer:
         loss_df.set_index(['epoch'], inplace=True)
         acc_df = pd.concat([self.train_hist['epoch'], self.train_hist['acc'], self.val_hist['acc']], axis=1)
         acc_df.set_index(['epoch'], inplace=True)
-        plot_hist(loss_df.index, loss_df, 'Loss')
-        plot_hist(acc_df.index, acc_df, 'R2')
+        plot_hist(loss_df.index, loss_df, title)
+        # plot_hist(acc_df.index, acc_df, 'R2')
 
         self.train_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
-        self.val_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
+        # self.val_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
 
 
 class FinetuneTrainer(Trainer):

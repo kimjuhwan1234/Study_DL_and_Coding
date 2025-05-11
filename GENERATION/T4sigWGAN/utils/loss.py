@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 
-def mse(x, y):
-    return torch.mean((x - y) ** 2)
+def rmse(x, y):
+    return torch.sqrt(torch.mean((x - y) ** 2))
 
 
 def mae(x, y):

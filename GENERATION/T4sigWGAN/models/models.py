@@ -18,7 +18,7 @@ class T4sigWGAN(nn.Module):
             if stage == 'Pretrain_1':
                 h = self.embedder(x)
                 x_tilde = self.recovery(h)
-                loss = mse(x, x_tilde)
+                loss = rmse(x, x_tilde)
                 return x_tilde, loss
 
             elif stage == 'Pretrain_2':
