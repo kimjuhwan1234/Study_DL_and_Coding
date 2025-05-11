@@ -4,7 +4,7 @@ import pandas as pd
 import statsmodels.api as sm
 from scipy import stats
 
-pd.set_option('display.precision', 4)
+pd.set_option('display.precision', 5)
 
 class METRICS:
     def __init__(self, result_df: pd.DataFrame, period: pd.Index):

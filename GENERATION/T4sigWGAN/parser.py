@@ -7,7 +7,7 @@ from .utils.augmentations import parse_augmentations
 parser = argparse.ArgumentParser()
 
 # initial setting
-parser.add_argument("--epochs", type=int, default=2, help="number of epochs")
+parser.add_argument("--epochs", type=int, default=2000, help="number of epochs")
 parser.add_argument("--device", default=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
 
 # log location
