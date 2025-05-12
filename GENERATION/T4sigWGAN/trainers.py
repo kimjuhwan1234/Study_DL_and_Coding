@@ -34,7 +34,7 @@ class Trainer:
         )
 
         self.optim_dict['G'] = Adam(
-            list(self.model.generator.parameters()) + list(self.model.supervisor.parameters()),
+            self.model.generator.parameters(),
             lr=self.args.lr,
             betas=betas,
             weight_decay=self.args.weight_decay,
@@ -48,7 +48,7 @@ class Trainer:
         )
 
         self.optim_dict['S'] = Adam(
-            list(self.model.generator.parameters()) + list(self.model.supervisor.parameters()),
+            self.model.supervisor.parameters(),
             lr=self.args.lr,
             betas=betas,
             weight_decay=self.args.weight_decay,
@@ -79,7 +79,7 @@ class Trainer:
         raise NotImplementedError
 
     def save(self):
-        torch.save(self.model.cpu().state_dict(), self.file_name)
+        torch.save(self.model.state_dict(), self.file_name)
 
     def load(self):
         self.model.load_state_dict(torch.load(self.file_name))
@@ -114,13 +114,18 @@ class FinetuneTrainer(Trainer):
 
     def iteration(self, epoch, stage, dataloader, mode="train"):
 
-        # Setting the tqdm progress bar
-        rec_data_iter = tqdm.tqdm(
-            enumerate(dataloader),
-            desc=f"{self.args.model_name} EP_{mode}:{epoch}",
-            total=len(dataloader),
-            bar_format="{l_bar}{r_bar}",
-        )
+        if self.args.verbose:
+            # Setting the tqdm progress bar
+            rec_data_iter = tqdm.tqdm(
+                enumerate(dataloader),
+                desc=f"{self.args.model_name} EP_{mode}:{epoch}",
+                total=len(dataloader),
+                bar_format="{l_bar}{r_bar}",
+            )
+
+        else:
+            rec_data_iter = enumerate(dataloader)
+
 
         if mode == "train":
             self.model.train()
@@ -145,14 +150,6 @@ class FinetuneTrainer(Trainer):
 
                 else:
                     x_hat, loss, loss_G, loss_D = self.model(stage, input)
-                    # PNL, PNL_validity = self.model.discriminator(input)
-                    # gen_PNL, gen_PNL_validity = self.model.discriminator(x_hat)
-                    #
-                    # fake_score = self.criterion(gen_PNL_validity, PNL)
-                    # real_score = self.criterion(PNL_validity, PNL)
-                    # loss_G = fake_score
-                    # loss_D = real_score - fake_score
-
                     self.optim_dict['R'].zero_grad()
                     loss_G.backward(retain_graph=True)
                     self.optim_dict['R'].step()
@@ -166,13 +163,12 @@ class FinetuneTrainer(Trainer):
                     self.optim_dict['G'].step()
 
 
-
                 cur_loss = loss
                 total_loss += loss
                 total_acc += 0
                 total += batch.size(0)
 
-            avg_loss = total_loss / len(rec_data_iter)
+            avg_loss = total_loss / len(dataloader)
             avg_acc = 100 * total_acc / total
 
             new_data = pd.DataFrame([[epoch, avg_loss, avg_acc]], columns=["epoch", "loss", "acc"])
@@ -181,11 +177,11 @@ class FinetuneTrainer(Trainer):
 
             post_fix = {
                 "epoch": epoch,
-                "avg_loss": "{:.4f}".format(total_loss / len(rec_data_iter)),
+                "avg_loss": "{:.4f}".format(total_loss / len(dataloader)),
                 "cur_loss": "{:.4f}".format(cur_loss),
             }
 
-            if (epoch + 1) % self.args.log_freq == 0:
+            if self.args.log_freq > 0 and (epoch + 1) % self.args.log_freq == 0:
                 print(str(post_fix))
 
         else:
@@ -216,7 +212,7 @@ class FinetuneTrainer(Trainer):
                     total_acc += 0
                     total += batch.size(0)
 
-            avg_loss = total_loss / len(rec_data_iter)
+            avg_loss = total_loss / len(dataloader)
             avg_acc = 100 * total_acc / total
 
             new_data = pd.DataFrame([[epoch, avg_loss, avg_acc]], columns=["epoch", "loss", "acc"])

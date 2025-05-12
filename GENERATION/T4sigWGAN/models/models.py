@@ -50,7 +50,7 @@ class T4sigWGAN(nn.Module):
             e_hat = self.generator(stage)
             h_hat = self.supervisor(e_hat)
             x_hat = self.recovery(h_hat)
-            return x_hat.detach().cpu().numpy()
+            return x_hat
 
 # g_loss_u = nn.BCEWithLogitsLoss()(out['y_fake'], torch.ones_like(out['y_fake']))
 # g_loss_ue = nn.BCEWithLogitsLoss()(out['y_fake_e'], torch.ones_like(out['y_fake_e']))

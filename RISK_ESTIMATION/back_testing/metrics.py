@@ -117,7 +117,7 @@ class METRICS:
             # y.index = X.index
             model = sm.OLS(y, X)
             newey_west = model.fit(cov_type='HAC', cov_kwds={'maxlags': 5})
-            month.iloc[3, i] = np.round(newey_west.tvalues, 4)
+            month.iloc[3, i] = np.round(newey_west.tvalues[0], 4)
 
         self.monthly_statistics = month
 

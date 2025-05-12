@@ -5,16 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/loss.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/result/Loss_plot.png" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/result/Loss_plot.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/result/R2_plot.png" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/result/R2_plot.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/GATCN.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/GATCN.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/result/SigW1_generator_loss_for_GS_plot.png" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/result/SigW1_generator_loss_for_GS_plot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/metrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/annual_statistics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/annual_statistics.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/monthly_statistics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/monthly_statistics.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +74,7 @@
     &quot;Python.train.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/Documents/GitHub/Study/Study_DL_and_Coding/GENERATION/T4sigWGAN/utils&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
@@ -422,11 +426,6 @@
           <url>file://$PROJECT_DIR$/GENERATION/sigwgan.ipynb</url>
           <line>97</line>
           <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb</url>
-          <line>41</line>
-          <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/GATCN.ipynb</url>
