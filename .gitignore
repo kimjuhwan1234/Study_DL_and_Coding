@@ -7,3 +7,6 @@
 /SigCWGAN/
 /SigWGAN/
 /GENERATION/result/Stock_T4sigWGAN.pt
+/GENERATION/result/Stock_T4sigWGANFinetune.pt
+/GENERATION/result/Stock_T4sigWGANPretrain_1.pt
+/GENERATION/result/Stock_T4sigWGANPretrain_2.pt

@@ -13,7 +13,6 @@ class T4sigWGAN(nn.Module):
         self.criterion = Score()
 
     def forward(self, stage, x=None):
-
         if x is not None:
             if stage == 'Pretrain_1':
                 h = self.embedder(x)
@@ -23,36 +22,39 @@ class T4sigWGAN(nn.Module):
 
             elif stage == 'Pretrain_2':
                 h = self.embedder(x)
+                x_tilde = self.recovery(h)
                 h_hat_supervise = self.supervisor(h)
                 loss = sigcwgan_loss(h[:, 1:, :], h_hat_supervise[:, :-1, :])
-                x_tilde = self.recovery(h)
                 return x_tilde, loss
 
             else:
                 e_hat = self.generator(self.batch_size)
-                h_hat = self.supervisor(e_hat)
                 h = self.embedder(x)
-                loss = sigcwgan_loss(h, h_hat)
+
+                h_hat = self.supervisor(e_hat)
+                h_hat_supervise = self.supervisor(h)
+
                 x_hat = self.recovery(h_hat)
+                x_tilde = self.recovery(h)
 
                 PNL, PNL_validity = self.discriminator(x)
                 gen_PNL, gen_PNL_validity = self.discriminator(x_hat)
 
+                loss_r = rmse(x, x_tilde)
+                loss_s = sigcwgan_loss(h[:, 1:, :], h_hat_supervise[:, :-1, :])
+                loss_u = sigcwgan_loss(h, h_hat)
+
                 fake_score = self.criterion(gen_PNL_validity, PNL)
                 real_score = self.criterion(PNL_validity, PNL)
-                loss_G = fake_score
-                loss_D = real_score - fake_score
 
+                loss_G = fake_score / 100000 + loss_u
+                loss_D = (real_score - fake_score) / 100000
+                loss_SR = loss_s + loss_r
 
-                return x_hat, loss, loss_G, loss_D
+                return x_hat, loss_G, loss_D, loss_SR
 
         else:
             e_hat = self.generator(stage)
             h_hat = self.supervisor(e_hat)
             x_hat = self.recovery(h_hat)
             return x_hat
-
-# g_loss_u = nn.BCEWithLogitsLoss()(out['y_fake'], torch.ones_like(out['y_fake']))
-# g_loss_ue = nn.BCEWithLogitsLoss()(out['y_fake_e'], torch.ones_like(out['y_fake_e']))
-# g_loss_s = mse(out['h'][:, 1:, :], out['h_hat_supervise'][:, :-1, :])
-# g_loss = g_loss_u + gamma * g_loss_ue + 100 * torch.sqrt(g_loss_s)

@@ -4,7 +4,7 @@ from torch.optim import Adam
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 from .utils.loss import *
-from .utils.utils import plot_hist
+from .utils.utils import plot_hist, plot_tail
 
 
 class Trainer:
@@ -17,31 +17,16 @@ class Trainer:
         self.eval_dataloader = eval_dataloader
         self.file_name = args.ROOT_DIR + args.data_name + args.model_name + ".pt"
 
-
-
         self.train_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
         self.val_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
+        self.tail_hist = pd.DataFrame(columns=['epoch', 'loss_D', 'loss_G'])
 
         self.lr_dict = {}
         self.optim_dict = {}
         betas = (self.args.adam_beta1, self.args.adam_beta2)
 
-        self.optim_dict['E'] = Adam(
+        self.optim_dict['ER'] = Adam(
             list(self.model.embedder.parameters()) + list(self.model.recovery.parameters()),
-            lr=self.args.lr,
-            betas=betas,
-            weight_decay=self.args.weight_decay,
-        )
-
-        self.optim_dict['G'] = Adam(
-            self.model.generator.parameters(),
-            lr=self.args.lr,
-            betas=betas,
-            weight_decay=self.args.weight_decay,
-        )
-
-        self.optim_dict['R'] = Adam(
-            self.model.recovery.final.parameters(),
             lr=self.args.lr,
             betas=betas,
             weight_decay=self.args.weight_decay,
@@ -54,6 +39,13 @@ class Trainer:
             weight_decay=self.args.weight_decay,
         )
 
+        self.optim_dict['G'] = Adam(
+            self.model.generator.parameters(),
+            lr=self.args.lr,
+            betas=betas,
+            weight_decay=self.args.weight_decay,
+        )
+
         self.optim_dict['D'] = Adam(
             self.model.discriminator.parameters(),
             lr=self.args.lr,
@@ -61,11 +53,18 @@ class Trainer:
             weight_decay=self.args.weight_decay,
         )
 
-        self.lr_dict['E'] = ReduceLROnPlateau(self.optim_dict['E'], mode='min', factor=0.2, patience=10)
-        self.lr_dict['G'] = ReduceLROnPlateau(self.optim_dict['G'], mode='min', factor=0.2, patience=10)
-        self.lr_dict['R'] = ReduceLROnPlateau(self.optim_dict['R'], mode='min', factor=0.2, patience=10)
+        self.optim_dict['SR'] = Adam(
+            list(self.model.supervisor.parameters()) + list(self.model.recovery.parameters()),
+            lr=self.args.lr,
+            betas=betas,
+            weight_decay=self.args.weight_decay,
+        )
+
+        self.lr_dict['ER'] = ReduceLROnPlateau(self.optim_dict['ER'], mode='min', factor=0.2, patience=10)
         self.lr_dict['S'] = ReduceLROnPlateau(self.optim_dict['S'], mode='min', factor=0.2, patience=10)
+        self.lr_dict['G'] = ReduceLROnPlateau(self.optim_dict['G'], mode='min', factor=0.2, patience=10)
         self.lr_dict['D'] = ReduceLROnPlateau(self.optim_dict['D'], mode='min', factor=0.2, patience=10)
+        self.lr_dict['SR'] = ReduceLROnPlateau(self.optim_dict['SR'], mode='min', factor=0.2, patience=10)
 
         print("Total Parameters:", sum([p.nelement() for p in self.model.parameters()]))
 
@@ -78,8 +77,9 @@ class Trainer:
     def iteration(self, epoch, stage, dataloader, mode="train"):
         raise NotImplementedError
 
-    def save(self):
-        torch.save(self.model.state_dict(), self.file_name)
+    def save(self, stage):
+        file_name = self.args.ROOT_DIR + self.args.data_name + self.args.model_name + stage + ".pt"
+        torch.save(self.model.state_dict(), file_name)
 
     def load(self):
         self.model.load_state_dict(torch.load(self.file_name))
@@ -99,13 +99,24 @@ class Trainer:
 
         loss_df = pd.concat([self.train_hist['epoch'], self.train_hist['loss'], self.val_hist['loss']], axis=1)
         loss_df.set_index(['epoch'], inplace=True)
-        acc_df = pd.concat([self.train_hist['epoch'], self.train_hist['acc'], self.val_hist['acc']], axis=1)
-        acc_df.set_index(['epoch'], inplace=True)
         plot_hist(loss_df.index, loss_df, title)
+
+        # acc_df = pd.concat([self.train_hist['epoch'], self.train_hist['acc'], self.val_hist['acc']], axis=1)
+        # acc_df.set_index(['epoch'], inplace=True)
         # plot_hist(acc_df.index, acc_df, 'R2')
 
         self.train_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
-        # self.val_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
+        self.val_hist = pd.DataFrame(columns=['epoch', 'loss', 'acc'])
+
+    def evaluate_tail(self, title):
+        self.tail_hist = self.tail_hist.applymap(
+            lambda x: x.cpu().detach().numpy() if isinstance(x, torch.Tensor) else x)
+
+        tail_df = pd.concat([self.tail_hist['epoch'], self.tail_hist['loss_D'], self.tail_hist['loss_G']], axis=1)
+        tail_df.set_index(['epoch'], inplace=True)
+        plot_tail(tail_df.index, tail_df, title)
+
+        self.tail_hist = pd.DataFrame(columns=['epoch', 'loss_D', 'loss_G'])
 
 
 class FinetuneTrainer(Trainer):
@@ -126,21 +137,22 @@ class FinetuneTrainer(Trainer):
         else:
             rec_data_iter = enumerate(dataloader)
 
-
         if mode == "train":
             self.model.train()
             cur_loss = 0.0
             total_loss = 0.0
             total_acc = 0.0
             total = 0.0
+            tail_loss_D = 0.0
+            tail_loss_G = 0.0
 
             for i, batch in rec_data_iter:
                 input = batch.to(self.device)
                 if stage == "Pretrain_1":
                     x_tilde, loss = self.model(stage, input)
-                    self.optim_dict['E'].zero_grad()
+                    self.optim_dict['ER'].zero_grad()
                     loss.backward()
-                    self.optim_dict['E'].step()
+                    self.optim_dict['ER'].step()
 
                 elif stage == "Pretrain_2":
                     x_tilde, loss = self.model(stage, input)
@@ -149,19 +161,20 @@ class FinetuneTrainer(Trainer):
                     self.optim_dict['S'].step()
 
                 else:
-                    x_hat, loss, loss_G, loss_D = self.model(stage, input)
-                    self.optim_dict['R'].zero_grad()
+                    x_hat, loss_G, loss_D, loss = self.model(stage, input)
+                    self.optim_dict['G'].zero_grad()
                     loss_G.backward(retain_graph=True)
-                    self.optim_dict['R'].step()
+                    self.optim_dict['G'].step()
+                    tail_loss_G += loss_G
 
                     self.optim_dict['D'].zero_grad()
                     loss_D.backward(retain_graph=True)
                     self.optim_dict['D'].step()
+                    tail_loss_D += loss_D
 
-                    self.optim_dict['G'].zero_grad()
+                    self.optim_dict['SR'].zero_grad()
                     loss.backward()
-                    self.optim_dict['G'].step()
-
+                    self.optim_dict['SR'].step()
 
                 cur_loss = loss
                 total_loss += loss
@@ -174,6 +187,15 @@ class FinetuneTrainer(Trainer):
             new_data = pd.DataFrame([[epoch, avg_loss, avg_acc]], columns=["epoch", "loss", "acc"])
             self.train_hist = pd.concat([self.train_hist.astype("float32"), new_data.astype("float32")],
                                         axis=0).reset_index(drop=True)
+
+            if stage == 'Finetune':
+                avg_tail_loss_D = tail_loss_D / len(dataloader)
+                avg_tail_loss_G = tail_loss_G / len(dataloader)
+
+                new_tail = pd.DataFrame([[epoch, avg_tail_loss_D, avg_tail_loss_G]],
+                                        columns=["epoch", "loss_D", "loss_G"])
+                self.tail_hist = pd.concat([self.tail_hist.astype("float32"), new_tail.astype("float32")],
+                                           axis=0).reset_index(drop=True)
 
             post_fix = {
                 "epoch": epoch,
@@ -200,13 +222,7 @@ class FinetuneTrainer(Trainer):
                         x_tilde, loss = self.model(stage, input)
 
                     else:
-                        x_hat, loss, loss_G, loss_D = self.model(stage, input)
-                        # PNL, PNL_validity = self.model.discriminator(input)
-                        # gen_PNL, gen_PNL_validity = self.model.discriminator(x_hat)
-                        # real_score = self.criterion(PNL_validity, PNL)
-                        # fake_score = self.criterion(gen_PNL_validity, PNL)
-                        # loss_D = real_score - fake_score
-                        # loss_G = fake_score
+                        x_hat, loss_G, loss_D, loss = self.model(stage, input)
 
                     total_loss += loss
                     total_acc += 0
@@ -220,16 +236,15 @@ class FinetuneTrainer(Trainer):
                                       axis=0).reset_index(drop=True)
 
             if stage == "Pretrain_1":
-                self.lr_dict['E'].step(avg_loss)
+                self.lr_dict['ER'].step(avg_loss)
 
 
             elif stage == "Pretrain_2":
                 self.lr_dict['S'].step(avg_loss)
 
             else:
-                self.lr_dict['R'].step(avg_loss)
                 self.lr_dict['G'].step(avg_loss)
                 self.lr_dict['D'].step(avg_loss)
-
+                self.lr_dict['SR'].step(avg_loss)
 
             return avg_loss.cpu().detach().numpy()

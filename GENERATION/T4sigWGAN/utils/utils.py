@@ -156,3 +156,14 @@ def plot_hist(index, hist_df, title):
     plt.legend(loc="upper right")
     plt.tight_layout()
     plt.savefig(f"result/{title}_plot.png", bbox_inches='tight')
+
+def plot_tail(index, hist_df, title):
+    plt.figure(figsize=(15, 3), dpi=400)
+    plt.plot(index, hist_df.iloc[:, 0], label="loss_D")
+    plt.plot(index, hist_df.iloc[:, 1], label="loss_G")
+    plt.title(f"GAN {title}")
+    plt.xlabel("Training Epochs")
+    plt.ylabel(f"{title}")
+    plt.legend(loc="upper right")
+    plt.tight_layout()
+    plt.savefig(f"result/{title}_plot.png", bbox_inches='tight')
