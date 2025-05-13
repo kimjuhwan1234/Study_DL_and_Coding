@@ -47,8 +47,8 @@ class T4sigWGAN(nn.Module):
                 fake_score = self.criterion(gen_PNL_validity, PNL)
                 real_score = self.criterion(PNL_validity, PNL)
 
-                loss_G = fake_score / 100000 + loss_u
-                loss_D = (real_score - fake_score) / 100000
+                loss_G = fake_score / 1000000 + loss_u
+                loss_D = (real_score - fake_score) / 1000000
                 loss_SR = loss_s + loss_r
 
                 return x_hat, loss_G, loss_D, loss_SR
