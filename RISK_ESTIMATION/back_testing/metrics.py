@@ -4,20 +4,30 @@ import pandas as pd
 import statsmodels.api as sm
 from scipy import stats
 
+# 만약 period가 문자열이면 먼저 Timestamp로 변환
+
 pd.set_option('display.precision', 5)
 
+
 class METRICS:
-    def __init__(self, result_df: pd.DataFrame, period: pd.Index):
-        self.result_df = result_df.loc[period, :].dropna(axis=0)
+    def __init__(self, result_df: pd.DataFrame):
+        result_df.index = pd.to_datetime(result_df.index, format='%Y-%m-%d').map(lambda x: x.date())
+        self.result_df = result_df
+
+
+    def cal_describe(self, period: tuple = None):
         self.annual_statistics = pd.DataFrame()
+        self.temp = self.result_df
+        if period is not None:
+            period = tuple(pd.to_datetime(p).date() for p in period)
+            self.temp = self.result_df.loc[period[0]:period[1], :]
 
-    def cal_describe(self):
-        for col in (self.result_df.columns):
+        for col in (self.temp.columns):
             statistic_dict = {}
-            row = self.result_df.loc[:, col]
-
-            statistic_dict['count'] = len(self.result_df.index)
-            statistic_dict['cumulative return'] = np.exp(np.mean(row) * 12) - 1
+            row = self.temp.loc[:, col].dropna()
+            statistic_dict['Date'] = f"{str(row.index[0])}-{str(row.index[-1])}"
+            statistic_dict['count'] = len(row.index)
+            statistic_dict['cumulative return'] = (np.exp(np.sum(row)) - 1) * 100
             statistic_dict['annualized return mean'] = np.exp(np.mean(row) * 12) - 1
             statistic_dict['annualized return std'] = np.exp(np.std(row) * np.sqrt(12)) - 1
             statistic_dict['annualized return downside std'] = (np.exp(np.std(row[row < 0]) * np.sqrt(12)) - 1) if len(
@@ -82,12 +92,12 @@ class METRICS:
     def cal_t_statistics(self):
         t_test = pd.DataFrame(index=['t-statistic', 'p_value'], columns=self.annual_statistics.columns)
         for i in range(len(self.annual_statistics.columns)):
-            t_statistic, p_value = stats.ttest_ind_from_stats(self.annual_statistics.iloc[2, i],
-                                                              self.annual_statistics.iloc[3, i],
-                                                              self.annual_statistics.iloc[0, i],
-                                                              self.annual_statistics.iloc[2, -1],
+            t_statistic, p_value = stats.ttest_ind_from_stats(self.annual_statistics.iloc[3, i],
+                                                              self.annual_statistics.iloc[4, i],
+                                                              self.annual_statistics.iloc[1, i],
                                                               self.annual_statistics.iloc[3, -1],
-                                                              self.annual_statistics.iloc[0, -1])
+                                                              self.annual_statistics.iloc[4, -1],
+                                                              self.annual_statistics.iloc[1, -1])
             t_test.iloc[0, i] = t_statistic
             t_test.iloc[1, i] = p_value
 
@@ -98,22 +108,23 @@ class METRICS:
             index=['Mean', 'Standard deviation', 'Standard error', 't-statistic', 'Min', '25%', '50%', '75%', 'Max',
                    'Skew', 'Kurtosis'], columns=self.annual_statistics.columns)
 
-        for i in range(len(self.annual_statistics.columns)):
-            month.iloc[0, i] = np.mean(self.result_df.iloc[:, i])
-            month.iloc[1, i] = np.std(self.result_df.iloc[:, i])
-            month.iloc[2, i] = np.std(self.result_df.iloc[:, i], ddof=1) / np.sqrt(len(self.result_df.iloc[:, i]))
-            month.iloc[4, i] = np.min(self.result_df.iloc[:, i])
-            month.iloc[5, i] = np.percentile(self.result_df.iloc[:, i], 25)
-            month.iloc[6, i] = np.percentile(self.result_df.iloc[:, i], 50)
-            month.iloc[7, i] = np.percentile(self.result_df.iloc[:, i], 75)
-            month.iloc[8, i] = np.max(self.result_df.iloc[:, i])
-            month.iloc[9, i] = self.result_df.iloc[:, i].skew()
-            month.iloc[10, i] = self.result_df.iloc[:, i].kurtosis()
+        for i in range(len(self.annual_statistics.columns) - 1):
+            row = self.result_df.iloc[:, i].dropna()
+            month.iloc[0, i] = np.mean(row)
+            month.iloc[1, i] = np.std(row)
+            month.iloc[2, i] = np.std(row, ddof=1) / np.sqrt(len(row))
+            month.iloc[4, i] = np.min(row)
+            month.iloc[5, i] = np.percentile(row, 25)
+            month.iloc[6, i] = np.percentile(row, 50)
+            month.iloc[7, i] = np.percentile(row, 75)
+            month.iloc[8, i] = np.max(row)
+            month.iloc[9, i] = row.skew()
+            month.iloc[10, i] = row.kurtosis()
 
             # X = sm.add_constant(self.result_df.iloc[i, :].shift(1).dropna())
-            X = np.ones(len(self.result_df))
+            X = np.ones(len(row))
             # y = self.result_df.iloc[i, :][1:].dropna().values
-            y = self.result_df.iloc[:, i].values
+            y = row.values
             # y.index = X.index
             model = sm.OLS(y, X)
             newey_west = model.fit(cov_type='HAC', cov_kwds={'maxlags': 5})
@@ -122,8 +133,8 @@ class METRICS:
         self.monthly_statistics = month
 
     def save_results(self, file_path):
-        self.annual_statistics.applymap(lambda x: round(x, 4)).to_csv(os.path.join(file_path, 'annual_statistics.csv'))
-        self.monthly_statistics.applymap(lambda x: round(x, 4)).to_csv(os.path.join(file_path, 'monthly_statistics.csv'))
+        self.annual_statistics.to_csv(os.path.join(file_path, 'annual_statistics.csv'))
+        self.monthly_statistics.to_csv(os.path.join(file_path, 'monthly_statistics.csv'))
 
 
 if __name__ == '__main__':

@@ -151,5 +151,5 @@ def create_summary(dataset, device, G, lags_past, steps, x_real, one=False):
         if one:
             x_p = x_p[:1]
         x_fake_future = G.sample(steps, x_p.to(device))
-        plot_summary(x_fake=x_fake_future, x_real=x_real, max_lag=3)
+        plot_summary(x_fake=x_fake_future, x_real=x_real, max_lag=20)
     return x_fake_future

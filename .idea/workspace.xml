@@ -5,19 +5,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fde0f3f-3ec1-451d-8b06-7a9cda16c9b4" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/response_1747124056797.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Study_DL_and_Coding.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/models/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/network/arfnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/network/arfnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/network/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/network/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/trainers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigWGAN/utils/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/T4sigwgan.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/result/RMSE_loss_for_ER_plot.png" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/result/RMSE_loss_for_ER_plot.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/result/SigW1_generator_loss_for_GS_plot.png" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/result/SigW1_generator_loss_for_GS_plot.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/result/SigW1_supervisor_loss_for_GS_plot.png" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/result/SigW1_supervisor_loss_for_GS_plot.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/GENERATION/sigwgan.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/GATCN.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/GATCN.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/metrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/return_calculate.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/back_testing/return_calculate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/AAPL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/AAPL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/AMZN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/AMZN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/CRM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/CRM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/DIS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/DIS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/GAT_TCN_weight.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/GOOG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/GOOG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/INTC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/INTC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/MSFT.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/MSFT.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/NVDA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/NVDA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/TSLA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/TSLA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/XOM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/XOM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/AAPL_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/AAPL_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/AAPL_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/AAPL_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/AMZN_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/AMZN_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/AMZN_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/AMZN_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/CRM_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/CRM_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/CRM_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/CRM_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/DIS_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/DIS_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/DIS_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/DIS_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/GOOG_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/GOOG_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/GOOG_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/GOOG_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/INTC_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/INTC_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/INTC_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/INTC_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/MSFT_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/MSFT_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/MSFT_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/MSFT_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/NVDA_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/NVDA_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/NVDA_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/NVDA_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/TSLA_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/TSLA_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/TSLA_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/TSLA_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/XOM_loss.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/XOM_loss.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/XOM_match_only.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/data/images/XOM_match_only.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/annual_statistics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/annual_statistics.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/monthly_statistics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/general_results/monthly_statistics.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/lib/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/lib/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/G_weights.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/G_weights.torch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/long_path.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/losses.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/losses.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/summary_long.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/training_loss.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/SigCWGAN/training_loss.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real.torch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_test.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_test.torch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_train.torch" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/numerical_results/VAR/stock/seed=0/x_real_train.torch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RISK_ESTIMATION/risk_estimation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/response_1747124056797.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +84,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/kimjuhwan1234/Study_DL_and_Coding.git&quot;,
-    &quot;accountId&quot;: &quot;6bf3fdb1-abcf-4814-938a-c32d98e27e5a&quot;
+    &quot;accountId&quot;: &quot;f1c095f5-2c5d-4f37-853b-dbae0c248208&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -76,7 +116,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/Documents/GitHub/Study/Study_DL_and_Coding/GENERATION/T4sigWGAN/utils&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/asas4/바탕 화면&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
@@ -89,11 +129,11 @@
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\asas4\바탕 화면\Dokumen\GitHub\Study\Study_DL_and_Coding" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\scratch" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4sigWGAN\models" />
       <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION" />
-      <recent name="C:\Users\USER\Desktop\Documents\GitHub\Study\Study_DL_and_Coding\GENERATION\T4-sigWGAN\metric" />
     </key>
   </component>
   <component name="RunManager" selected="Python.gen_synthetic">
@@ -330,7 +370,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-f7cd937e3587-99d813433b97-com.jetbrains.pycharm.ds.sharedIndexes.bundled-DS-251.23774.439" />
+        <option value="bundled-python-sdk-a8e928d85084-fab4200a9dfa-com.jetbrains.pycharm.ds.sharedIndexes.bundled-DS-243.22562.236" />
       </set>
     </attachedChunks>
   </component>
@@ -419,7 +459,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/TS_generation.ipynb</url>
-          <line>166</line>
+          <line>168</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
@@ -429,17 +469,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/GATCN.ipynb</url>
-          <line>638</line>
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>file://$PROJECT_DIR$/RISK_ESTIMATION/GATCN.ipynb</url>
-          <line>670</line>
+          <line>672</line>
           <option name="timeStamp" value="77" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/RISK_ESTIMATION/back_testing.ipynb</url>
-          <line>51</line>
+          <line>56</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">

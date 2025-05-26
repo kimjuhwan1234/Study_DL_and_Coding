@@ -47,7 +47,8 @@ def return_Table(weight_df: pd.DataFrame, momentum_df: pd.DataFrame, result_df: 
         non_zero_count = weight_df.astype(bool).sum(axis=1)
         return_df = return_df + non_zero_count * fee_log
 
-    result_df = pd.concat([result_df, return_df], axis=1).fillna(0)
+    return_df = return_df.dropna()
+    result_df = pd.concat([result_df, return_df], axis=1).sort_index()
     return result_df
 
 
