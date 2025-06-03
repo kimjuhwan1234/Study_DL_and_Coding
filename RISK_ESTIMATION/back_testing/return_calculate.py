@@ -65,19 +65,28 @@ def plot_result(result_df, apply_log: bool):
         'Cointegration': 'darkgrey',  # Darker shade of grey
         'Reversal': 'lightgrey',  # Lighter shade of grey
         'FTSE 100': 'grey',  # Standard grey
-        'S&P 500': 'grey'
+        'S&P 500': 'black',
+        'GAT_TCN': 'brown',
+        'LSTM': 'yellow',
     }
 
-    plt.figure(figsize=(12, 3), dpi=400)
+    plt.figure(figsize=(12, 5), dpi=400)
+    import matplotlib.cm as cm
 
     handles = []
-    for key in result_df.columns:
+    for i, key in enumerate(result_df.columns):
+        cmap = cm.get_cmap('tab10', len(result_df.columns))  # keys: 라인 수
+        color = cmap(i)  # cmap으로 색상 추출
         if key in color_dict.keys():
-            line, = plt.plot(result_df.index, result_df.loc[:, key].fillna(method='ffill'),
-                             label=key, color=color_dict[key])
+            if key =='LSTM' or key == 'GAT_TCN':
+                line, = plt.plot(result_df.index, result_df.loc[:, key].fillna(method='ffill'),
+                                 label=key, color=color_dict[key])
+            else:
+                line, = plt.plot(result_df.index, result_df.loc[:, key].fillna(method='ffill'),
+                                 label=key, color=color_dict[key], linestyle='--')
         else:
             line, = plt.plot(result_df.index, result_df.loc[:, key].fillna(method='ffill'),
-                             label=key)
+                             label=key, color=color)
         handles.append(line)
 
     plt.title(f'Backtesting Results')
