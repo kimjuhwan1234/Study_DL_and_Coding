@@ -10,3 +10,6 @@
 /GENERATION/result/Stock_T4sigWGANFinetune.pt
 /GENERATION/result/Stock_T4sigWGANPretrain_1.pt
 /GENERATION/result/Stock_T4sigWGANPretrain_2.pt
+/venv/
+/WRDS/filtered/
+/RISK_ESTIMATION/data/
