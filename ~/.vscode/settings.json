@@ -1,6 +1,0 @@
-{
-    "python.condaPath": "/home/miniconda3/bin/conda",
-    "python.condaEnvironmentsPath": "/home/miniconda3/envs",
-    "python.terminal.activateEnvironment": true,
-    "python.defaultInterpreterPath": "/home/miniconda3/envs/research/bin/python"
-} 
