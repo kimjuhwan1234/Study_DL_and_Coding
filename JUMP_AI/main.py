@@ -379,7 +379,7 @@ if __name__ == "__main__":
 
 
     print("\nSaving trained models...")
-    with open('data/trained_models.pkl', 'wb') as f:
+    with open('JUMP_AI/data/trained_models.pkl', 'wb') as f:
         pickle.dump({
             'models': models,
             'best_params_lgb': best_params_lgb,
