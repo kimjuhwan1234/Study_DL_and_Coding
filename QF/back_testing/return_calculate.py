@@ -30,8 +30,15 @@ def return_Table(weight_df: pd.DataFrame, price_df: pd.DataFrame, result_df: pd.
 
     # price_df가 이미 momentum 데이터인지 확인하고 처리
     # price_df에서 momentum 계산
-    momentum_df = price_df.resample(rebalance_freq).last().dropna(
-        axis=0).pct_change().dropna()
+    
+    price_df.index = pd.to_datetime(price_df.index)
+    weight_df.index = pd.to_datetime(weight_df.index)
+    
+    if rebalance_freq == 'A':
+        momentum_df = price_df
+    else:
+        momentum_df = price_df.resample(rebalance_freq).last().dropna(
+            axis=0).pct_change().dropna()
     # 리밸런싱 날짜에만 weight를 적용하고, 나머지는 이전 weight 유지
     weight_df_rebalanced = weight_df.reindex(
         momentum_df.index, method='ffill')
@@ -92,8 +99,16 @@ def return_Table(weight_df: pd.DataFrame, price_df: pd.DataFrame, result_df: pd.
         try:
             global_data = yf.download(
                 tickers, start=price_df.index[0], end=price_df.index[-1])['Close']
-            sp500_returns = global_data['^GSPC'].resample(
-                rebalance_freq).last().dropna(axis=0).pct_change().dropna()
+            
+            if rebalance_freq == 'A':
+                spx_series = global_data['^GSPC'].sort_index()
+                idx_sorted = price_df.index.sort_values()
+                spx_aligned_sorted = spx_series.asof(idx_sorted)
+                spx_aligned = pd.Series(spx_aligned_sorted.values, index=idx_sorted).reindex(price_df.index)
+                sp500_returns = spx_aligned.pct_change().dropna()
+            else:
+                sp500_returns = global_data['^GSPC'].resample(
+                    rebalance_freq).last().dropna(axis=0).pct_change().dropna()
             sp500_returns = sp500_returns.apply(lambda x: np.log1p(x))
             sp500_returns.name = 'S&P 500'
             sp500_returns = sp500_returns.reindex(return_series.index)
@@ -127,6 +142,8 @@ def cal_turnover(weight_df: pd.DataFrame, rebalance_freq: str = "M") -> pd.Serie
         각 리밸런스 시점의 turnover
     """
     # 리밸런스 주기별로 weight 뽑기
+    if rebalance_freq == 'A':
+        rebalance_freq = 'D'
     sampled = weight_df.resample(rebalance_freq).last().dropna(how="all")
 
     # turnover = 0.5 * sum(abs(diff))
