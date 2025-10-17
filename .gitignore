@@ -18,4 +18,6 @@
 /CASUAL_INFERENCE/images/
 /BIGCON/
 /WRDS/
-/FERM/
+/FERM/data/
+/FERM/back_testing/
+/FERM/general_results/
