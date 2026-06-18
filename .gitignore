@@ -21,3 +21,5 @@
 /FERM/data/
 /FERM/back_testing/
 /FERM/general_results/
+/MSDiffusion/data/
+/MSDiffusion/Diffseg-Enc-hyper/

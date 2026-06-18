@@ -1,1 +1,0 @@
-from .sigwgan import *
